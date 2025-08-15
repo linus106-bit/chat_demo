@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLab Chat Demo - Dual SmolLM Models</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <h1>OpenLab Chat Demo</h1>
+                </div>
+                <div class="model-info">
+                    <span class="model-badge">Dual SmolLM Models</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" data-tab="general">
+                    <span class="tab-icon">💬</span>
+                    General Chat
+                </button>
+                <button class="tab-button" data-tab="correction">
+                    <span class="tab-icon">✏️</span>
+                    Correction
+                </button>
+                <button class="tab-button" data-tab="extraction">
+                    <span class="tab-icon">🔍</span>
+                    Key Value Extraction
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content active" id="generalTab">
+                <!-- Chat Grid -->
+                <div class="chat-grid">
+                    <!-- SmolLM2 Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">🚀</div>
+                                <h3>SmolLM2-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="generalSmollm2Status">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="generalSmollm2Messages">
+                        </div>
+                    </div>
+
+                    <!-- SmolLM Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">⚡</div>
+                                <h3>SmolLM-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="generalSmollmStatus">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="generalSmollmMessages">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Area -->
+                <div class="suggestions-container">
+                    <h3 class="suggestions-title">💬 Try these general questions:</h3>
+                    <div class="suggestions-grid">
+                        <button class="suggestion-button" data-mode="general" data-prompt="Explain quantum computing in simple terms">
+                            🔬 Explain quantum computing in simple terms
+                        </button>
+                        <button class="suggestion-button" data-mode="general" data-prompt="Write a Python function to calculate fibonacci numbers">
+                            🐍 Write a Python function to calculate fibonacci numbers
+                        </button>
+                        <button class="suggestion-button" data-mode="general" data-prompt="What are the benefits of renewable energy?">
+                            🌱 What are the benefits of renewable energy?
+                        </button>
+                        <button class="suggestion-button" data-mode="general" data-prompt="How do I start learning machine learning?">
+                            🤖 How do I start learning machine learning?
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Correction Tab -->
+            <div class="tab-content" id="correctionTab">
+                <!-- Chat Grid -->
+                <div class="chat-grid">
+                    <!-- SmolLM2 Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">🚀</div>
+                                <h3>SmolLM2-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="correctionSmollm2Status">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="correctionSmollm2Messages">
+                        </div>
+                    </div>
+
+                    <!-- SmolLM Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">⚡</div>
+                                <h3>SmolLM-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="correctionSmollmStatus">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="correctionSmollmMessages">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Area -->
+                <div class="suggestions-container">
+                    <h3 class="suggestions-title">✏️ Try these text correction examples:</h3>
+                    <div class="suggestions-grid">
+                        <button class="suggestion-button" data-mode="correction" data-prompt="I cant beleive its already december and i havent finished my homwork yet.">
+                            🔍 Fix: "I cant beleive its already december and i havent finished my homwork yet."
+                        </button>
+                        <button class="suggestion-button" data-mode="correction" data-prompt="Their going to there house to get they're things.">
+                            📚 Correct: "Their going to there house to get they're things."
+                        </button>
+                        <button class="suggestion-button" data-mode="correction" data-prompt="The meeting will be held on Monday, Wenesday, and friday at 3pm.">
+                            📅 Fix: "The meeting will be held on Monday, Wenesday, and friday at 3pm."
+                        </button>
+                        <button class="suggestion-button" data-mode="correction" data-prompt="Please find attached the documents you requested. I hope this helps with you're project.">
+                            💼 Business: "Please find attached the documents you requested. I hope this helps with you're project."
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Value Extraction Tab -->
+            <div class="tab-content" id="extractionTab">
+                <!-- Chat Grid -->
+                <div class="chat-grid">
+                    <!-- SmolLM2 Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">🚀</div>
+                                <h3>SmolLM2-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="extractionSmollm2Status">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="extractionSmollm2Messages">
+                        </div>
+                    </div>
+
+                    <!-- SmolLM Chat -->
+                    <div class="chat-panel">
+                        <div class="panel-header">
+                            <div class="model-title">
+                                <div class="model-avatar">⚡</div>
+                                <h3>SmolLM-135M-Instruct</h3>
+                            </div>
+                            <div class="model-status" id="extractionSmollmStatus">Loading...</div>
+                        </div>
+                        <div class="chat-messages" id="extractionSmollmMessages">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Area -->
+                <div class="suggestions-container">
+                    <h3 class="suggestions-title">🔍 Try these extraction examples:</h3>
+                    <div class="suggestions-grid">
+                        <button class="suggestion-button" data-mode="extraction" data-prompt="John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985">
+                            👤 Personal Info: Extract from contact details
+                        </button>
+                        <button class="suggestion-button" data-mode="extraction" data-prompt="Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)">
+                            🧾 Invoice: Extract financial data
+                        </button>
+                        <button class="suggestion-button" data-mode="extraction" data-prompt="Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes">
+                            📅 Meeting: Extract schedule information
+                        </button>
+                        <button class="suggestion-button" data-mode="extraction" data-prompt="Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105">
+                            🏢 Business: Extract company data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
+</body>
+</html>
