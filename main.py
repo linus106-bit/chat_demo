@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 import uvicorn
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
@@ -9,9 +9,10 @@ import json
 import os
 import asyncio
 import markdown
-from typing import Optional
+from typing import Optional, AsyncGenerator
 from contextlib import asynccontextmanager
 from concurrent.futures import ThreadPoolExecutor
+import threading
 
 # Global variables for models
 models = {
@@ -85,6 +86,8 @@ templates = Jinja2Templates(directory="templates")
 # Thread pool for concurrent model execution
 executor = ThreadPoolExecutor(max_workers=2)
 
+# Removed AsyncTextStreamer class - using simpler direct streaming approach
+
 def generate_response(prompt: str, model_key: str, mode: str = "general") -> str:
     """Generate response using the specified model and mode"""
     model_info = models[model_key]
@@ -141,6 +144,82 @@ def generate_response(prompt: str, model_key: str, mode: str = "general") -> str
     
     except Exception as e:
         return f"Sorry, I encountered an error: {str(e)}"
+
+def generate_streaming_response(prompt: str, model_key: str, mode: str = "general"):
+    """Generate streaming response using the specified model and mode"""
+    model_info = models[model_key]
+    
+    if model_info["model"] is None or model_info["tokenizer"] is None:
+        # Mock streaming for demo purposes
+        demo_text = f"I'm a demo version of {model_info['name']}. In a full implementation, I would process your message: {prompt[:100]}..."
+        for word in demo_text.split():
+            yield word + " "
+            import time
+            time.sleep(0.1)  # Simulate streaming delay
+        return
+    
+    try:
+        tokenizer = model_info["tokenizer"]
+        model = model_info["model"]
+        
+        # Create system prompt based on mode
+        system_prompts = {
+            "general": "You are a helpful AI assistant. Provide clear, accurate, and helpful responses to any questions or tasks.",
+            "correction": "You are a text correction specialist. Your task is to correct grammar, spelling, punctuation, and improve the clarity of the given text. Return only the corrected version without explanations unless specifically asked.",
+            "extraction": "You are a key-value extraction specialist. Extract important information from the given text and present it as key-value pairs in a structured format. Focus on names, dates, numbers, addresses, and other significant data points."
+        }
+        
+        system_prompt = system_prompts.get(mode, system_prompts["general"])
+        
+        # Create chat messages for the template
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt}
+        ]
+        
+        # Apply chat template
+        formatted_prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+        
+        # Tokenize the formatted prompt
+        inputs = tokenizer(formatted_prompt, return_tensors="pt")
+        input_length = inputs.input_ids.shape[1]
+        
+        # Simple streaming approach: generate tokens one by one
+        with torch.no_grad():
+            generated_ids = inputs.input_ids.clone()
+            last_text = ""
+            
+            for _ in range(512):  # max_new_tokens
+                # Get next token
+                outputs = model(generated_ids)
+                next_token_logits = outputs.logits[0, -1, :]
+                
+                # Sample next token
+                next_token_logits = next_token_logits / 0.7  # temperature
+                probs = torch.softmax(next_token_logits, dim=-1)
+                next_token = torch.multinomial(probs, num_samples=1)
+                
+                # Check if we hit the end token
+                if next_token.item() == tokenizer.eos_token_id:
+                    break
+                
+                # Append the new token
+                generated_ids = torch.cat([generated_ids, next_token.unsqueeze(0)], dim=-1)
+                
+                # Decode and yield the new token
+                new_text = tokenizer.decode(generated_ids[0][input_length:], skip_special_tokens=True)
+                if len(new_text) > len(last_text):
+                    new_part = new_text[len(last_text):]
+                    last_text = new_text
+                    if new_part:
+                        yield new_part
+        
+    except Exception as e:
+        yield f"Sorry, I encountered an error: {str(e)}"
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -205,6 +284,29 @@ async def chat_single(message: str = Form(...), mode: str = Form("general"), mod
         }
     except Exception as e:
         return {"response": {"text": f"Error: {str(e)}", "html": f"Error: {str(e)}"}, "status": "error"}
+
+@app.get("/chat_stream")
+async def chat_stream(message: str, mode: str = "general", model: str = "smollm2"):
+    """Stream chat response for a single model"""
+    def stream_generator():
+        try:
+            for token in generate_streaming_response(message, model, mode):
+                # Send token as Server-Sent Event
+                yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
+            # Send completion signal
+            yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
+        except Exception as e:
+            yield f"data: {json.dumps({'error': str(e), 'done': True})}\n\n"
+    
+    return StreamingResponse(
+        stream_generator(),
+        media_type="text/plain",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"  # Disable nginx buffering
+        }
+    )
 
 @app.get("/health")
 async def health_check():

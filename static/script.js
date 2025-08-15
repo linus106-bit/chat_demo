@@ -64,39 +64,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const smollm2LoadingId = addLoadingMessage(smollm2Messages);
                 const smollmLoadingId = addLoadingMessage(smollmMessages);
                 
-                // Send individual requests to each model
-                const smollm2Promise = fetchModelResponse(prompt, mode, 'smollm2');
-                const smollmPromise = fetchModelResponse(prompt, mode, 'smollm');
+                // Send streaming requests to each model
+                const smollm2Promise = fetchStreamingResponse(prompt, mode, 'smollm2', smollm2Messages);
+                const smollmPromise = fetchStreamingResponse(prompt, mode, 'smollm', smollmMessages);
                 
-                // Handle SmolLM2 response when ready
-                smollm2Promise.then(response => {
-                    removeLoadingMessage(smollm2Messages, smollm2LoadingId);
-                    if (response.success) {
-                        addMessage(response.data.html, 'assistant', smollm2Messages, true);
-                    } else {
-                        addMessage('Sorry, SmolLM2 encountered an error. Please try again.', 'assistant', smollm2Messages);
-                    }
-                }).catch(error => {
-                    console.error('SmolLM2 Error:', error);
-                    removeLoadingMessage(smollm2Messages, smollm2LoadingId);
-                    addMessage('Sorry, SmolLM2 encountered an error. Please try again.', 'assistant', smollm2Messages);
-                });
+                // Remove loading messages since streaming will handle display
+                removeLoadingMessage(smollm2Messages, smollm2LoadingId);
+                removeLoadingMessage(smollmMessages, smollmLoadingId);
                 
-                // Handle SmolLM response when ready
-                smollmPromise.then(response => {
-                    removeLoadingMessage(smollmMessages, smollmLoadingId);
-                    if (response.success) {
-                        addMessage(response.data.html, 'assistant', smollmMessages, true);
-                    } else {
-                        addMessage('Sorry, SmolLM encountered an error. Please try again.', 'assistant', smollmMessages);
-                    }
-                }).catch(error => {
-                    console.error('SmolLM Error:', error);
-                    removeLoadingMessage(smollmMessages, smollmLoadingId);
-                    addMessage('Sorry, SmolLM encountered an error. Please try again.', 'assistant', smollmMessages);
-                });
-                
-                // Wait for both to complete before re-enabling buttons
+                // Wait for both streams to complete before re-enabling buttons
                 Promise.allSettled([smollm2Promise, smollmPromise]).then(() => {
                     document.querySelectorAll('.suggestion-button').forEach(btn => {
                         btn.disabled = false;
@@ -124,7 +100,76 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fetch response from individual model
+    // Fetch streaming response from individual model
+    async function fetchStreamingResponse(prompt, mode, modelKey, container) {
+        try {
+            const url = `/chat_stream?message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            let fullText = '';
+            
+            // Create the message container for streaming
+            const messageId = addStreamingMessage(container);
+            const messageElement = document.getElementById(messageId);
+            const textElement = messageElement.querySelector('.message-text');
+            
+            while (true) {
+                const { done, value } = await reader.read();
+                
+                if (done) break;
+                
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop(); // Keep incomplete line in buffer
+                
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.slice(6));
+                            
+                            if (data.error) {
+                                textElement.textContent = `Error: ${data.error}`;
+                                return { success: false, error: data.error };
+                            }
+                            
+                            if (data.done) {
+                                // Convert final text to markdown
+                                const htmlContent = typeof marked !== 'undefined' ? 
+                                    marked.parse(fullText) : 
+                                    fullText;
+                                textElement.innerHTML = htmlContent;
+                                return { success: true, data: { html: htmlContent, text: fullText } };
+                            }
+                            
+                            if (data.token) {
+                                fullText += data.token;
+                                textElement.textContent = fullText;
+                                // Auto-scroll to bottom
+                                container.scrollTop = container.scrollHeight;
+                            }
+                        } catch (e) {
+                            console.error('Error parsing SSE data:', e);
+                        }
+                    }
+                }
+            }
+            
+            return { success: true, data: { html: fullText, text: fullText } };
+            
+        } catch (error) {
+            console.error(`Error fetching ${modelKey} streaming response:`, error);
+            return { success: false, error: error.message };
+        }
+    }
+    
+    // Fetch response from individual model (non-streaming fallback)
     async function fetchModelResponse(prompt, mode, modelKey) {
         try {
             const response = await fetch('/chat_single', {
@@ -185,6 +230,42 @@ document.addEventListener('DOMContentLoaded', function() {
         if (loadingMessage) {
             loadingMessage.remove();
         }
+    }
+
+    // Add streaming message container and return its ID
+    function addStreamingMessage(container) {
+        const messageId = 'streaming-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message assistant-message';
+        messageDiv.id = messageId;
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'message-avatar';
+        avatar.textContent = '🤖';
+        
+        const content = document.createElement('div');
+        content.className = 'message-content';
+        
+        const messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        messageText.textContent = '';
+        
+        const messageTime = document.createElement('div');
+        messageTime.className = 'message-time';
+        messageTime.textContent = new Date().toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        content.appendChild(messageText);
+        content.appendChild(messageTime);
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(content);
+        
+        container.appendChild(messageDiv);
+        container.scrollTop = container.scrollHeight;
+        
+        return messageId;
     }
 
     // Add message to specified chat container
