@@ -1,0 +1,179 @@
+[
+  {
+    "step": 1,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I",
+    "tokenization": {
+      "input_ids": [
+        57
+      ],
+      "tokens": [
+        "I"
+      ],
+      "token_count": 1
+    }
+  },
+  {
+    "step": 2,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277
+      ],
+      "tokens": [
+        "I",
+        "Ġwant"
+      ],
+      "token_count": 2
+    }
+  },
+  {
+    "step": 3,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto"
+      ],
+      "token_count": 3
+    }
+  },
+  {
+    "step": 4,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to go",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288,
+        685
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto",
+        "Ġgo"
+      ],
+      "token_count": 4
+    }
+  },
+  {
+    "step": 5,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to go to",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288,
+        685,
+        288
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto",
+        "Ġgo",
+        "Ġto"
+      ],
+      "token_count": 5
+    }
+  },
+  {
+    "step": 6,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to go to the",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288,
+        685,
+        288,
+        260
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto",
+        "Ġgo",
+        "Ġto",
+        "Ġthe"
+      ],
+      "token_count": 6
+    }
+  },
+  {
+    "step": 7,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to go to the grocery",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288,
+        685,
+        288,
+        260,
+        15384
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto",
+        "Ġgo",
+        "Ġto",
+        "Ġthe",
+        "Ġgrocery"
+      ],
+      "token_count": 7
+    }
+  },
+  {
+    "step": 8,
+    "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+    "response": "I want to go to the grocery store.",
+    "tokenization": {
+      "input_ids": [
+        57,
+        1277,
+        288,
+        685,
+        288,
+        260,
+        15384,
+        4249,
+        30
+      ],
+      "tokens": [
+        "I",
+        "Ġwant",
+        "Ġto",
+        "Ġgo",
+        "Ġto",
+        "Ġthe",
+        "Ġgrocery",
+        "Ġstore",
+        "."
+      ],
+      "token_count": 9
+    }
+  },
+  {
+    "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+    "tokenizer_info": {
+      "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "vocab_size": 49152
+    }
+  }
+]

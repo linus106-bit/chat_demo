@@ -1,0 +1,125 @@
+[
+  {
+    "step": 1,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The",
+    "tokenization": {
+      "input_ids": [
+        504
+      ],
+      "tokens": [
+        "The"
+      ],
+      "token_count": 1
+    }
+  },
+  {
+    "step": 2,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The receipt",
+    "tokenization": {
+      "input_ids": [
+        504,
+        30691
+      ],
+      "tokens": [
+        "The",
+        "Ġreceipt"
+      ],
+      "token_count": 2
+    }
+  },
+  {
+    "step": 3,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The receipt was",
+    "tokenization": {
+      "input_ids": [
+        504,
+        30691,
+        436
+      ],
+      "tokens": [
+        "The",
+        "Ġreceipt",
+        "Ġwas"
+      ],
+      "token_count": 3
+    }
+  },
+  {
+    "step": 4,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The receipt was in",
+    "tokenization": {
+      "input_ids": [
+        504,
+        30691,
+        436,
+        281
+      ],
+      "tokens": [
+        "The",
+        "Ġreceipt",
+        "Ġwas",
+        "Ġin"
+      ],
+      "token_count": 4
+    }
+  },
+  {
+    "step": 5,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The receipt was in the",
+    "tokenization": {
+      "input_ids": [
+        504,
+        30691,
+        436,
+        281,
+        260
+      ],
+      "tokens": [
+        "The",
+        "Ġreceipt",
+        "Ġwas",
+        "Ġin",
+        "Ġthe"
+      ],
+      "token_count": 5
+    }
+  },
+  {
+    "step": 6,
+    "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+    "response": "The receipt was in the drawer.",
+    "tokenization": {
+      "input_ids": [
+        504,
+        30691,
+        436,
+        281,
+        260,
+        46520,
+        30
+      ],
+      "tokens": [
+        "The",
+        "Ġreceipt",
+        "Ġwas",
+        "Ġin",
+        "Ġthe",
+        "Ġdrawer",
+        "."
+      ],
+      "token_count": 7
+    }
+  },
+  {
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "tokenizer_info": {
+      "model_name": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "vocab_size": 49152
+    }
+  }
+]

@@ -64,9 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const smollm2LoadingId = addLoadingMessage(smollm2Messages);
                 const smollmLoadingId = addLoadingMessage(smollmMessages);
                 
+                // Check if demo mode is enabled
+                const demoMode = document.getElementById('demoModeToggle').checked;
+                
                 // Send streaming requests to each model
-                const smollm2Promise = fetchStreamingResponse(prompt, mode, 'smollm2', smollm2Messages);
-                const smollmPromise = fetchStreamingResponse(prompt, mode, 'smollm', smollmMessages);
+                const smollm2Promise = fetchStreamingResponse(prompt, mode, 'smollm2', smollm2Messages, demoMode);
+                const smollmPromise = fetchStreamingResponse(prompt, mode, 'smollm', smollmMessages, demoMode);
                 
                 // Remove loading messages since streaming will handle display
                 removeLoadingMessage(smollm2Messages, smollm2LoadingId);
@@ -101,9 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fetch streaming response from individual model
-    async function fetchStreamingResponse(prompt, mode, modelKey, container) {
+    async function fetchStreamingResponse(prompt, mode, modelKey, container, demoMode = false) {
         try {
-            const url = `/chat_stream?message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}`;
+            const url = `/chat_stream?message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}&demo=${demoMode}`;
             const response = await fetch(url);
             
             if (!response.ok) {
@@ -114,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const decoder = new TextDecoder();
             let buffer = '';
             let fullText = '';
+            let demoFullText = ''; // For demo mode to track complete response
             
             // Create the message container for streaming
             const messageId = addStreamingMessage(container);
@@ -141,16 +145,24 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             if (data.done) {
                                 // Convert final text to markdown
+                                const finalText = demoMode ? demoFullText : fullText;
                                 const htmlContent = typeof marked !== 'undefined' ? 
-                                    marked.parse(fullText) : 
-                                    fullText;
+                                    marked.parse(finalText) : 
+                                    finalText;
                                 textElement.innerHTML = htmlContent;
-                                return { success: true, data: { html: htmlContent, text: fullText } };
+                                return { success: true, data: { html: htmlContent, text: finalText } };
                             }
                             
                             if (data.token) {
-                                fullText += data.token;
-                                textElement.textContent = fullText;
+                                if (demoMode) {
+                                    // For demo mode, accumulate the full response and display it
+                                    demoFullText += data.token;
+                                    textElement.textContent = demoFullText;
+                                } else {
+                                    // For live mode, accumulate tokens
+                                    fullText += data.token;
+                                    textElement.textContent = fullText;
+                                }
                                 // Auto-scroll to bottom
                                 container.scrollTop = container.scrollHeight;
                             }
@@ -161,7 +173,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            return { success: true, data: { html: fullText, text: fullText } };
+            const finalText = demoMode ? demoFullText : fullText;
+            return { success: true, data: { html: finalText, text: finalText } };
             
         } catch (error) {
             console.error(`Error fetching ${modelKey} streaming response:`, error);

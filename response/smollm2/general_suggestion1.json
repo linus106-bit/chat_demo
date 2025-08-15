@@ -1,0 +1,671 @@
+[
+  {
+    "step": 1,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum",
+    "tokenization": {
+      "input_ids": [
+        48021
+      ],
+      "tokens": [
+        "Quantum"
+      ],
+      "token_count": 1
+    }
+  },
+  {
+    "step": 2,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing"
+      ],
+      "token_count": 2
+    }
+  },
+  {
+    "step": 3,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis"
+      ],
+      "token_count": 3
+    }
+  },
+  {
+    "step": 4,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa"
+      ],
+      "token_count": 4
+    }
+  },
+  {
+    "step": 5,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary"
+      ],
+      "token_count": 5
+    }
+  },
+  {
+    "step": 6,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology"
+      ],
+      "token_count": 6
+    }
+  },
+  {
+    "step": 7,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat"
+      ],
+      "token_count": 7
+    }
+  },
+  {
+    "step": 8,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses"
+      ],
+      "token_count": 8
+    }
+  },
+  {
+    "step": 9,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum"
+      ],
+      "token_count": 9
+    }
+  },
+  {
+    "step": 10,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics"
+      ],
+      "token_count": 10
+    }
+  },
+  {
+    "step": 11,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples"
+      ],
+      "token_count": 11
+    }
+  },
+  {
+    "step": 12,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto"
+      ],
+      "token_count": 12
+    }
+  },
+  {
+    "step": 13,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess"
+      ],
+      "token_count": 13
+    }
+  },
+  {
+    "step": 14,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation"
+      ],
+      "token_count": 14
+    }
+  },
+  {
+    "step": 15,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin"
+      ],
+      "token_count": 15
+    }
+  },
+  {
+    "step": 16,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281,
+        1853
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin",
+        "Ġways"
+      ],
+      "token_count": 16
+    }
+  },
+  {
+    "step": 17,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways that",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281,
+        1853,
+        338
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin",
+        "Ġways",
+        "Ġthat"
+      ],
+      "token_count": 17
+    }
+  },
+  {
+    "step": 18,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways that classical",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281,
+        1853,
+        338,
+        8766
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin",
+        "Ġways",
+        "Ġthat",
+        "Ġclassical"
+      ],
+      "token_count": 18
+    }
+  },
+  {
+    "step": 19,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways that classical computers",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281,
+        1853,
+        338,
+        8766,
+        5530
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin",
+        "Ġways",
+        "Ġthat",
+        "Ġclassical",
+        "Ġcomputers"
+      ],
+      "token_count": 19
+    }
+  },
+  {
+    "step": 20,
+    "prompt": "Explain quantum computing in simple terms",
+    "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways that classical computers cannot.",
+    "tokenization": {
+      "input_ids": [
+        48021,
+        7867,
+        314,
+        253,
+        11951,
+        1835,
+        338,
+        2925,
+        8671,
+        12774,
+        3618,
+        288,
+        980,
+        1096,
+        281,
+        1853,
+        338,
+        8766,
+        5530,
+        2526,
+        30
+      ],
+      "tokens": [
+        "Quantum",
+        "Ġcomputing",
+        "Ġis",
+        "Ġa",
+        "Ġrevolutionary",
+        "Ġtechnology",
+        "Ġthat",
+        "Ġuses",
+        "Ġquantum",
+        "Ġmechanics",
+        "Ġprinciples",
+        "Ġto",
+        "Ġprocess",
+        "Ġinformation",
+        "Ġin",
+        "Ġways",
+        "Ġthat",
+        "Ġclassical",
+        "Ġcomputers",
+        "Ġcannot",
+        "."
+      ],
+      "token_count": 21
+    }
+  },
+  {
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "tokenizer_info": {
+      "model_name": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "vocab_size": 49152
+    }
+  }
+]

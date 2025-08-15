@@ -245,6 +245,110 @@ def generate_streaming_response(prompt: str, model_key: str, mode: str = "genera
     except Exception as e:
         yield f"Sorry, I encountered an error: {str(e)}"
 
+def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
+    """Generate demo streaming response from pre-saved JSON files using input_ids"""
+    import time
+    
+    # Map prompts to their corresponding JSON files for each model
+    prompt_to_file = {
+        "smollm2": {
+            # General Chat suggestions
+            "Explain quantum computing in simple terms": "general_suggestion1.json",
+            "Write a Python function to calculate fibonacci numbers": "general_suggestion2.json", 
+            "What are the benefits of renewable energy?": "general_suggestion3.json",
+            "How do I start learning machine learning?": "general_suggestion4.json",
+            
+            # Correction suggestions
+            "I cant beleive its already december and i havent finished my homwork yet.": "correction_suggestion1.json",
+            "Their going to there house to get they're things.": "correction_suggestion2.json",
+            "The meeting will be held on Monday, Wenesday, and friday at 3pm.": "correction_suggestion3.json",
+            "Please find attached the documents you requested. I hope this helps with you're project.": "correction_suggestion4.json",
+            
+            # Extraction suggestions
+            "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985": "extraction_suggestion1.json",
+            "Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)": "extraction_suggestion2.json",
+            "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes": "extraction_suggestion3.json",
+            "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105": "extraction_suggestion4.json"
+        },
+        "smollm": {
+            # General Chat suggestions
+            "Explain quantum computing in simple terms": "general_suggestion1.json",
+            "Write a Python function to calculate fibonacci numbers": "general_suggestion2.json", 
+            "What are the benefits of renewable energy?": "general_suggestion3.json",
+            "How do I start learning machine learning?": "general_suggestion4.json",
+            
+            # Correction suggestions
+            "I cant beleive its already december and i havent finished my homwork yet.": "correction_suggestion1.json",
+            "Their going to there house to get they're things.": "correction_suggestion2.json",
+            "The meeting will be held on Monday, Wenesday, and friday at 3pm.": "correction_suggestion3.json",
+            "Please find attached the documents you requested. I hope this helps with you're project.": "correction_suggestion4.json",
+            
+            # Extraction suggestions
+            "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985": "extraction_suggestion1.json",
+            "Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)": "extraction_suggestion2.json",
+            "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes": "extraction_suggestion3.json",
+            "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105": "extraction_suggestion4.json"
+        }
+    }
+    
+    # Find the matching file for this prompt and model
+    model_prompts = prompt_to_file.get(model_key, {})
+    filename = model_prompts.get(prompt)
+    if not filename:
+        # Fallback response if prompt doesn't match
+        fallback_text = f"Demo response for {model_key}: {prompt[:50]}..."
+        for word in fallback_text.split():
+            yield word + " "
+            time.sleep(0.1)
+        return
+    
+    try:
+        # Load the JSON file from model-specific folder
+        filepath = f"response/{model_key}/{filename}"
+        with open(filepath, 'r') as f:
+            steps = json.load(f)
+        
+        # Get the tokenizer for this model
+        model_info = models.get(model_key, {})
+        tokenizer = model_info.get("tokenizer")
+        
+        if not tokenizer:
+            # Fallback to text-based streaming if no tokenizer available
+            last_response = ""
+            for step in steps:
+                if isinstance(step, dict) and "response" in step:
+                    response = step["response"]
+                    if len(response) > len(last_response):
+                        new_part = response[len(last_response):]
+                        if new_part:
+                            yield new_part
+                            time.sleep(0.05)
+                    last_response = response
+            return
+        
+        # Stream using input_ids - each step represents new tokens to add
+        last_input_ids = []
+        for step in steps:
+            if isinstance(step, dict) and "tokenization" in step:
+                current_input_ids = step["tokenization"]["input_ids"]
+                print(current_input_ids)
+                
+                # Calculate new tokens to add (difference from previous step)
+                if len(current_input_ids) > len(last_input_ids):
+                    new_token_ids = current_input_ids[len(last_input_ids):]
+                    
+                    # Convert new token IDs to text
+                    for token_id in new_token_ids:
+                        token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                        if token_text:
+                            yield token_text
+                            time.sleep(0.03)  # Slightly faster for token-by-token
+                
+                last_input_ids = current_input_ids
+            
+    except Exception as e:
+        yield f"Demo error: {str(e)}"
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """Render the main chat interface"""
@@ -310,15 +414,20 @@ async def chat_single(message: str = Form(...), mode: str = Form("general"), mod
         return {"response": {"text": f"Error: {str(e)}", "html": f"Error: {str(e)}"}, "status": "error"}
 
 @app.get("/chat_stream")
-async def chat_stream(message: str, mode: str = "general", model: str = "smollm2"):
+async def chat_stream(message: str, mode: str = "general", model: str = "smollm2", demo: bool = False):
     """Stream chat response for a single model"""
     def stream_generator():
         try:
-            for token in generate_streaming_response(message, model, mode):
-                # Send token as Server-Sent Event
-                yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
-            # Send completion signal
-            yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
+            if demo:
+                # Use demo responses from JSON files
+                for token in generate_demo_streaming_response(message, mode, model):
+                    yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
+                yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
+            else:
+                # Use real model generation
+                for token in generate_streaming_response(message, model, mode):
+                    yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
+                yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
         except Exception as e:
             yield f"data: {json.dumps({'error': str(e), 'done': True})}\n\n"
     

@@ -1,0 +1,132 @@
+[
+    {
+        "step": 1,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here"
+    },
+    {
+        "step": 2,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's"
+    },
+    {
+        "step": 3,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a"
+    },
+    {
+        "step": 4,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python"
+    },
+    {
+        "step": 5,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function"
+    },
+    {
+        "step": 6,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to"
+    },
+    {
+        "step": 7,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate"
+    },
+    {
+        "step": 8,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci"
+    },
+    {
+        "step": 9,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:"
+    },
+    {
+        "step": 10,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python"
+    },
+    {
+        "step": 11,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef"
+    },
+    {
+        "step": 12,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci"
+    },
+    {
+        "step": 13,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):"
+    },
+    {
+        "step": 14,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if"
+    },
+    {
+        "step": 15,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n"
+    },
+    {
+        "step": 16,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <="
+    },
+    {
+        "step": 17,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:"
+    },
+    {
+        "step": 18,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return"
+    },
+    {
+        "step": 19,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n"
+    },
+    {
+        "step": 20,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return"
+    },
+    {
+        "step": 21,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci"
+    },
+    {
+        "step": 22,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1)"
+    },
+    {
+        "step": 23,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) +"
+    },
+    {
+        "step": 24,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci"
+    },
+    {
+        "step": 25,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)"
+    },
+    {
+        "step": 26,
+        "prompt": "Write a Python function to calculate fibonacci numbers",
+        "response": "Here's a Python function to calculate Fibonacci numbers:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n```"
+    }
+]

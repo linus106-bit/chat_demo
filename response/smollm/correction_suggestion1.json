@@ -1,0 +1,125 @@
+[
+  {
+    "step": 1,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I",
+    "tokenization": {
+      "input_ids": [
+        57
+      ],
+      "tokens": [
+        "I"
+      ],
+      "token_count": 1
+    }
+  },
+  {
+    "step": 2,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I went",
+    "tokenization": {
+      "input_ids": [
+        57,
+        3514
+      ],
+      "tokens": [
+        "I",
+        "Ġwent"
+      ],
+      "token_count": 2
+    }
+  },
+  {
+    "step": 3,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I went to",
+    "tokenization": {
+      "input_ids": [
+        57,
+        3514,
+        288
+      ],
+      "tokens": [
+        "I",
+        "Ġwent",
+        "Ġto"
+      ],
+      "token_count": 3
+    }
+  },
+  {
+    "step": 4,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I went to the",
+    "tokenization": {
+      "input_ids": [
+        57,
+        3514,
+        288,
+        260
+      ],
+      "tokens": [
+        "I",
+        "Ġwent",
+        "Ġto",
+        "Ġthe"
+      ],
+      "token_count": 4
+    }
+  },
+  {
+    "step": 5,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I went to the store",
+    "tokenization": {
+      "input_ids": [
+        57,
+        3514,
+        288,
+        260,
+        4249
+      ],
+      "tokens": [
+        "I",
+        "Ġwent",
+        "Ġto",
+        "Ġthe",
+        "Ġstore"
+      ],
+      "token_count": 5
+    }
+  },
+  {
+    "step": 6,
+    "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+    "response": "I went to the store yesterday.",
+    "tokenization": {
+      "input_ids": [
+        57,
+        3514,
+        288,
+        260,
+        4249,
+        18400,
+        30
+      ],
+      "tokens": [
+        "I",
+        "Ġwent",
+        "Ġto",
+        "Ġthe",
+        "Ġstore",
+        "Ġyesterday",
+        "."
+      ],
+      "token_count": 7
+    }
+  },
+  {
+    "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+    "tokenizer_info": {
+      "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "vocab_size": 49152
+    }
+  }
+]

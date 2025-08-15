@@ -1,0 +1,32 @@
+[
+    {
+        "step": 1,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What"
+    },
+    {
+        "step": 2,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What time"
+    },
+    {
+        "step": 3,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What time is"
+    },
+    {
+        "step": 4,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What time is it?\""
+    },
+    {
+        "step": 5,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What time is it?\" she"
+    },
+    {
+        "step": 6,
+        "prompt": "Fix punctuation: 'What time is it she asked'",
+        "response": "\"What time is it?\" she asked."
+    }
+]

@@ -1,0 +1,32 @@
+[
+    {
+        "step": 1,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I"
+    },
+    {
+        "step": 2,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I went"
+    },
+    {
+        "step": 3,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I went to"
+    },
+    {
+        "step": 4,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I went to the"
+    },
+    {
+        "step": 5,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I went to the store"
+    },
+    {
+        "step": 6,
+        "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
+        "response": "I went to the store yesterday."
+    }
+]
