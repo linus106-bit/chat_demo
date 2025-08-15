@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, StreamingResponse
 import uvicorn
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, TextStreamer
 import torch
 import json
 import os
@@ -13,6 +13,7 @@ from typing import Optional, AsyncGenerator
 from contextlib import asynccontextmanager
 from concurrent.futures import ThreadPoolExecutor
 import threading
+import queue
 
 # Global variables for models
 models = {
@@ -86,7 +87,33 @@ templates = Jinja2Templates(directory="templates")
 # Thread pool for concurrent model execution
 executor = ThreadPoolExecutor(max_workers=2)
 
-# Removed AsyncTextStreamer class - using simpler direct streaming approach
+class CustomTextStreamer(TextStreamer):
+    """Custom text streamer that yields tokens as they're generated"""
+    def __init__(self, tokenizer, skip_prompt=True):
+        super().__init__(tokenizer, skip_prompt=skip_prompt)
+        self.token_queue = queue.Queue()
+        self.finished = False
+        
+    def on_finalized_text(self, text: str, stream_end: bool = False):
+        """Called when text is finalized (after each token)"""
+        if text and not stream_end:
+            self.token_queue.put(text)
+        if stream_end:
+            self.finished = True
+            self.token_queue.put(None)  # Sentinel value
+    
+    def get_tokens(self):
+        """Generator that yields tokens as they become available"""
+        while True:
+            try:
+                token = self.token_queue.get(timeout=0.1)
+                if token is None:  # End of generation
+                    break
+                yield token
+            except queue.Empty:
+                if self.finished:
+                    break
+                continue
 
 def generate_response(prompt: str, model_key: str, mode: str = "general") -> str:
     """Generate response using the specified model and mode"""
@@ -186,37 +213,34 @@ def generate_streaming_response(prompt: str, model_key: str, mode: str = "genera
         
         # Tokenize the formatted prompt
         inputs = tokenizer(formatted_prompt, return_tensors="pt")
-        input_length = inputs.input_ids.shape[1]
         
-        # Simple streaming approach: generate tokens one by one
-        with torch.no_grad():
-            generated_ids = inputs.input_ids.clone()
-            last_text = ""
-            
-            for _ in range(512):  # max_new_tokens
-                # Get next token
-                outputs = model(generated_ids)
-                next_token_logits = outputs.logits[0, -1, :]
-                
-                # Sample next token
-                next_token_logits = next_token_logits / 0.7  # temperature
-                probs = torch.softmax(next_token_logits, dim=-1)
-                next_token = torch.multinomial(probs, num_samples=1)
-                
-                # Check if we hit the end token
-                if next_token.item() == tokenizer.eos_token_id:
-                    break
-                
-                # Append the new token
-                generated_ids = torch.cat([generated_ids, next_token.unsqueeze(0)], dim=-1)
-                
-                # Decode and yield the new token
-                new_text = tokenizer.decode(generated_ids[0][input_length:], skip_special_tokens=True)
-                if len(new_text) > len(last_text):
-                    new_part = new_text[len(last_text):]
-                    last_text = new_text
-                    if new_part:
-                        yield new_part
+        # Create custom streamer
+        streamer = CustomTextStreamer(tokenizer, skip_prompt=True)
+        
+        # Generate in a separate thread
+        def generate():
+            with torch.no_grad():
+                model.generate(
+                    inputs.input_ids,
+                    max_new_tokens=512,
+                    temperature=0.7,
+                    do_sample=True,
+                    pad_token_id=tokenizer.eos_token_id,
+                    attention_mask=inputs.attention_mask if 'attention_mask' in inputs else None,
+                    streamer=streamer
+                )
+            streamer.on_finalized_text("", stream_end=True)
+        
+        # Start generation in background thread
+        generation_thread = threading.Thread(target=generate)
+        generation_thread.start()
+        
+        # Yield tokens as they become available
+        for token in streamer.get_tokens():
+            yield token
+        
+        # Wait for generation to complete
+        generation_thread.join()
         
     except Exception as e:
         yield f"Sorry, I encountered an error: {str(e)}"
