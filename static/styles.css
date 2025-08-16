@@ -381,6 +381,13 @@ input:checked + .demo-slider:before {
     letter-spacing: 0.5px;
     background: linear-gradient(135deg, #fef7ff, #f3e8ff);
     border: 1px solid #e9d5ff;
+    white-space: pre-wrap;  /* Preserve spaces and allow wrapping */
+    word-break: break-word;  /* Break long words if needed */
+    max-width: 600px;  /* Reasonable maximum width for readability */
+    min-height: 2.5rem;  /* Minimum height to prevent jumping */
+    box-sizing: border-box;  /* Include padding in width calculation */
+    overflow-wrap: break-word;  /* Additional word breaking support */
+    line-height: 1.2;  /* Tighter line height to reduce newline spacing */
 }
 
 /* Markdown Styling */

@@ -146,6 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (data.done) {
                                 // Convert final text to markdown
                                 const finalText = demoMode ? demoFullText : fullText;
+                                
+                                // Remove shuffled styling for final display to match regular formatting
+                                textElement.classList.remove('shuffled-text');
+                                
                                 const htmlContent = typeof marked !== 'undefined' ? 
                                     marked.parse(finalText) : 
                                     finalText;
