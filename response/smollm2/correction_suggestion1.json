@@ -1,4 +1,5 @@
 {
+  "prompt": "I cant beleive its already december and i havent finished my homwork yet.",
   "full_input_ids": [
     57,
     3514,
@@ -10,11 +11,11 @@
   ],
   "full_tokens": [
     "I",
-    "Ġwent",
-    "Ġto",
-    "Ġthe",
-    "Ġstore",
-    "Ġyesterday",
+    "\u0120went",
+    "\u0120to",
+    "\u0120the",
+    "\u0120store",
+    "\u0120yesterday",
     "."
   ],
   "total_tokens": 7,

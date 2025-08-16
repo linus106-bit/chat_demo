@@ -227,24 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Fetch response from individual model (non-streaming fallback)
-    async function fetchModelResponse(prompt, mode, modelKey) {
-        try {
-            const response = await fetch('/chat_single', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}`
-            });
 
-            const data = await response.json();
-            return { success: data.status === 'success', data: data.response };
-        } catch (error) {
-            console.error(`Error fetching ${modelKey} response:`, error);
-            return { success: false, error: error.message };
-        }
-    }
 
     // Add loading message and return its ID for removal
     function addLoadingMessage(container) {

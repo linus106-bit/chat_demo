@@ -42,19 +42,20 @@ Each JSON file contains the complete token sequence and streaming steps with tok
 ### Sequential Generation Format (SmolLM2):
 ```json
 {
+    "prompt": "Write a Python function to calculate fibonacci numbers",
     "full_input_ids": [48021, 7867, 314, 253, 11951, 1835],
     "full_tokens": ["Quantum", "Ġcomputing", "Ġis", "Ġa", "Ġrevolutionary", "Ġtechnology"],
     "total_tokens": 6,
     "steps": [
         {
             "step": 1,
-            "prompt": "The original prompt",
+            "prompt": "Write a Python function to calculate fibonacci numbers",
             "response": "Quantum",
             "token_index": 1
         },
         {
             "step": 2,
-            "prompt": "The original prompt", 
+            "prompt": "Write a Python function to calculate fibonacci numbers", 
             "response": "Quantum computing",
             "token_index": 2
         }
@@ -67,6 +68,7 @@ Each JSON file contains the complete token sequence and streaming steps with tok
 ### Shuffled Generation Format (SmolLM):
 ```json
 {
+    "prompt": "Explain quantum computing in simple terms",
     "full_input_ids": [48021, 7867, 314, 253, 11951, 1835],
     "full_tokens": ["Quantum", "Ġcomputing", "Ġis", "Ġa", "Ġrevolutionary", "Ġtechnology"],
     "total_tokens": 6,
@@ -108,6 +110,7 @@ for pos in range(total_positions):
 - **Model-Specific**: Each model uses its own folder for different response styles
 - **Token-Based Streaming**: Responses are streamed using actual input_ids for realistic token-by-token generation
 - **Simplified Keys**: Backend uses simple keys like `general_suggestion1`, while frontend displays actual prompt text to users
+- **Self-Contained**: Each JSON file now includes the actual prompt text at the top level for better readability and organization
 - **Generation Types**: 
   - **Sequential** (SmolLM2): Traditional left-to-right token generation (0.03s per step)
   - **Shuffled** (SmolLM): Diffusion-style generation where tokens appear in random positions (0.03s per step)

@@ -11,7 +11,7 @@ import asyncio
 import markdown
 from typing import Optional, AsyncGenerator
 from contextlib import asynccontextmanager
-from concurrent.futures import ThreadPoolExecutor
+
 import threading
 import queue
 
@@ -83,9 +83,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Templates
 templates = Jinja2Templates(directory="templates")
-
-# Thread pool for concurrent model execution
-executor = ThreadPoolExecutor(max_workers=2)
 
 class CustomTextStreamer(TextStreamer):
     """Custom text streamer that yields tokens as they're generated"""
@@ -244,6 +241,71 @@ def generate_streaming_response(prompt: str, model_key: str, mode: str = "genera
         
     except Exception as e:
         yield f"Sorry, I encountered an error: {str(e)}"
+
+def get_actual_prompt(key: str) -> str:
+    """Get actual prompt text from JSON file or fallback to hardcoded mapping"""
+    # First try to get prompt from JSON file
+    prompt_from_file = get_prompt_from_json(key)
+    if prompt_from_file:
+        return prompt_from_file
+    
+    # Fallback to hardcoded mapping
+    prompt_map = {
+        # General Chat
+        'general_suggestion1': 'Explain quantum computing in simple terms',
+        'general_suggestion2': 'Write a Python function to calculate fibonacci numbers',
+        'general_suggestion3': 'What are the benefits of renewable energy?',
+        'general_suggestion4': 'How do I start learning machine learning?',
+        
+        # Correction
+        'correction_suggestion1': 'I cant beleive its already december and i havent finished my homwork yet.',
+        'correction_suggestion2': 'Their going to there house to get they\'re things.',
+        'correction_suggestion3': 'The meeting will be held on Monday, Wenesday, and friday at 3pm.',
+        'correction_suggestion4': 'Please find attached the documents you requested. I hope this helps with you\'re project.',
+        
+        # Extraction
+        'extraction_suggestion1': 'John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985',
+        'extraction_suggestion2': 'Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)',
+        'extraction_suggestion3': 'Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes',
+        'extraction_suggestion4': 'Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105'
+    }
+    
+    # Return mapped prompt or the original key if no mapping found
+    return prompt_map.get(key, key)
+
+def get_prompt_from_json(key: str) -> str:
+    """Try to get prompt text from JSON file"""
+    # Map keys to file names
+    file_mapping = {
+        'general_suggestion1': 'general_suggestion1.json',
+        'general_suggestion2': 'general_suggestion2.json',
+        'general_suggestion3': 'general_suggestion3.json',
+        'general_suggestion4': 'general_suggestion4.json',
+        'correction_suggestion1': 'correction_suggestion1.json',
+        'correction_suggestion2': 'correction_suggestion2.json',
+        'correction_suggestion3': 'correction_suggestion3.json',
+        'correction_suggestion4': 'correction_suggestion4.json',
+        'extraction_suggestion1': 'extraction_suggestion1.json',
+        'extraction_suggestion2': 'extraction_suggestion2.json',
+        'extraction_suggestion3': 'extraction_suggestion3.json',
+        'extraction_suggestion4': 'extraction_suggestion4.json',
+    }
+    
+    filename = file_mapping.get(key)
+    if not filename:
+        return None
+    
+    # Try to read prompt from any model's JSON file (they should be the same)
+    for model_key in ['smollm2', 'smollm']:
+        try:
+            filepath = f"response/{model_key}/{filename}"
+            with open(filepath, 'r') as f:
+                data = json.load(f)
+                return data.get('prompt')
+        except:
+            continue
+    
+    return None
 
 def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
     """Generate demo streaming response from pre-saved JSON files using input_ids"""
@@ -421,65 +483,6 @@ async def home(request: Request):
     """Render the main chat interface"""
     return templates.TemplateResponse("index.html", {"request": request})
 
-async def generate_response_async(prompt: str, model_key: str, mode: str = "general") -> str:
-    """Async wrapper for generate_response to run in thread pool"""
-    loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(executor, generate_response, prompt, model_key, mode)
-
-@app.post("/chat")
-async def chat(message: str = Form(...), mode: str = Form("general")):
-    """Handle chat messages and return responses from both models simultaneously"""
-    try:
-        # Generate responses from both models concurrently
-        smollm2_task = generate_response_async(message, "smollm2", mode)
-        smollm_task = generate_response_async(message, "smollm", mode)
-        
-        # Wait for both responses to complete simultaneously
-        smollm2_response, smollm_response = await asyncio.gather(smollm2_task, smollm_task)
-        
-        # Convert responses to HTML using markdown
-        smollm2_html = markdown.markdown(smollm2_response, extensions=['fenced_code', 'tables', 'nl2br'])
-        smollm_html = markdown.markdown(smollm_response, extensions=['fenced_code', 'tables', 'nl2br'])
-        
-        return {
-            "responses": {
-                "smollm2": {
-                    "text": smollm2_response,
-                    "html": smollm2_html
-                },
-                "smollm": {
-                    "text": smollm_response,
-                    "html": smollm_html
-                }
-            },
-            "mode": mode,
-            "status": "success"
-        }
-    except Exception as e:
-        return {"responses": {"smollm2": f"Error: {str(e)}", "smollm": f"Error: {str(e)}"}, "status": "error"}
-
-@app.post("/chat_single")
-async def chat_single(message: str = Form(...), mode: str = Form("general"), model: str = Form(...)):
-    """Handle chat message for a single model"""
-    try:
-        # Generate response from specified model
-        response = await generate_response_async(message, model, mode)
-        
-        # Convert response to HTML using markdown
-        response_html = markdown.markdown(response, extensions=['fenced_code', 'tables', 'nl2br'])
-        
-        return {
-            "response": {
-                "text": response,
-                "html": response_html
-            },
-            "model": model,
-            "mode": mode,
-            "status": "success"
-        }
-    except Exception as e:
-        return {"response": {"text": f"Error: {str(e)}", "html": f"Error: {str(e)}"}, "status": "error"}
-
 @app.get("/chat_stream")
 async def chat_stream(message: str, mode: str = "general", model: str = "smollm2", demo: bool = False):
     """Stream chat response for a single model"""
@@ -491,8 +494,11 @@ async def chat_stream(message: str, mode: str = "general", model: str = "smollm2
                     yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
                 yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
             else:
-                # Use real model generation
-                for token in generate_streaming_response(message, model, mode):
+                # Map internal key to actual prompt text for real model generation
+                prompt_text = get_actual_prompt(message)
+                
+                # Use real model generation with actual prompt text
+                for token in generate_streaming_response(prompt_text, model, mode):
                     yield f"data: {json.dumps({'token': token, 'done': False})}\n\n"
                 yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
         except Exception as e:
