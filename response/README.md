@@ -107,6 +107,7 @@ for pos in range(total_positions):
 - **Demo Mode**: When demo mode is enabled, the system loads responses from these files
 - **Model-Specific**: Each model uses its own folder for different response styles
 - **Token-Based Streaming**: Responses are streamed using actual input_ids for realistic token-by-token generation
+- **Simplified Keys**: Backend uses simple keys like `general_suggestion1`, while frontend displays actual prompt text to users
 - **Generation Types**: 
   - **Sequential** (SmolLM2): Traditional left-to-right token generation (0.03s per step)
   - **Shuffled** (SmolLM): Diffusion-style generation where tokens appear in random positions (0.03s per step)

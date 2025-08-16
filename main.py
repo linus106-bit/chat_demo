@@ -249,45 +249,45 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
     """Generate demo streaming response from pre-saved JSON files using input_ids"""
     import time
     
-    # Map prompts to their corresponding JSON files for each model
+    # Map simple keys to their corresponding JSON files for each model
     prompt_to_file = {
         "smollm2": {
             # General Chat suggestions
-            "Explain quantum computing in simple terms": "general_suggestion1.json",
-            "Write a Python function to calculate fibonacci numbers": "general_suggestion2.json", 
-            "What are the benefits of renewable energy?": "general_suggestion3.json",
-            "How do I start learning machine learning?": "general_suggestion4.json",
+            "general_suggestion1": "general_suggestion1.json",
+            "general_suggestion2": "general_suggestion2.json", 
+            "general_suggestion3": "general_suggestion3.json",
+            "general_suggestion4": "general_suggestion4.json",
             
             # Correction suggestions
-            "I cant beleive its already december and i havent finished my homwork yet.": "correction_suggestion1.json",
-            "Their going to there house to get they're things.": "correction_suggestion2.json",
-            "The meeting will be held on Monday, Wenesday, and friday at 3pm.": "correction_suggestion3.json",
-            "Please find attached the documents you requested. I hope this helps with you're project.": "correction_suggestion4.json",
+            "correction_suggestion1": "correction_suggestion1.json",
+            "correction_suggestion2": "correction_suggestion2.json",
+            "correction_suggestion3": "correction_suggestion3.json",
+            "correction_suggestion4": "correction_suggestion4.json",
             
             # Extraction suggestions
-            "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985": "extraction_suggestion1.json",
-            "Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)": "extraction_suggestion2.json",
-            "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes": "extraction_suggestion3.json",
-            "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105": "extraction_suggestion4.json"
+            "extraction_suggestion1": "extraction_suggestion1.json",
+            "extraction_suggestion2": "extraction_suggestion2.json",
+            "extraction_suggestion3": "extraction_suggestion3.json",
+            "extraction_suggestion4": "extraction_suggestion4.json"
         },
         "smollm": {
             # General Chat suggestions
-            "Explain quantum computing in simple terms": "general_suggestion1.json",
-            "Write a Python function to calculate fibonacci numbers": "general_suggestion2.json", 
-            "What are the benefits of renewable energy?": "general_suggestion3.json",
-            "How do I start learning machine learning?": "general_suggestion4.json",
+            "general_suggestion1": "general_suggestion1.json",
+            "general_suggestion2": "general_suggestion2.json", 
+            "general_suggestion3": "general_suggestion3.json",
+            "general_suggestion4": "general_suggestion4.json",
             
             # Correction suggestions
-            "I cant beleive its already december and i havent finished my homwork yet.": "correction_suggestion1.json",
-            "Their going to there house to get they're things.": "correction_suggestion2.json",
-            "The meeting will be held on Monday, Wenesday, and friday at 3pm.": "correction_suggestion3.json",
-            "Please find attached the documents you requested. I hope this helps with you're project.": "correction_suggestion4.json",
+            "correction_suggestion1": "correction_suggestion1.json",
+            "correction_suggestion2": "correction_suggestion2.json",
+            "correction_suggestion3": "correction_suggestion3.json",
+            "correction_suggestion4": "correction_suggestion4.json",
             
             # Extraction suggestions
-            "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985": "extraction_suggestion1.json",
-            "Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)": "extraction_suggestion2.json",
-            "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes": "extraction_suggestion3.json",
-            "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105": "extraction_suggestion4.json"
+            "extraction_suggestion1": "extraction_suggestion1.json",
+            "extraction_suggestion2": "extraction_suggestion2.json",
+            "extraction_suggestion3": "extraction_suggestion3.json",
+            "extraction_suggestion4": "extraction_suggestion4.json"
         }
     }
     

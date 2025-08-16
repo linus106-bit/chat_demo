@@ -1,4 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Map internal keys to actual prompt text that users should see
+    const promptDisplayMap = {
+        // General Chat
+        'general_suggestion1': 'Explain quantum computing in simple terms',
+        'general_suggestion2': 'Write a Python function to calculate fibonacci numbers',
+        'general_suggestion3': 'What are the benefits of renewable energy?',
+        'general_suggestion4': 'How do I start learning machine learning?',
+        
+        // Correction
+        'correction_suggestion1': 'I cant beleive its already december and i havent finished my homwork yet.',
+        'correction_suggestion2': 'Their going to there house to get they\'re things.',
+        'correction_suggestion3': 'The meeting will be held on Monday, Wenesday, and friday at 3pm.',
+        'correction_suggestion4': 'Please find attached the documents you requested. I hope this helps with you\'re project.',
+        
+        // Extraction
+        'extraction_suggestion1': 'John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985',
+        'extraction_suggestion2': 'Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)',
+        'extraction_suggestion3': 'Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes',
+        'extraction_suggestion4': 'Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105'
+    };
     
     // Tab management
     const tabButtons = document.querySelectorAll('.tab-button');
@@ -48,9 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
             clearChatHistory(smollm2Messages);
             clearChatHistory(smollmMessages);
 
-            // Add user message to both chat panels
-            addMessage(prompt, 'user', smollm2Messages);
-            addMessage(prompt, 'user', smollmMessages);
+            // Get the display text for the user message (or use prompt if no mapping)
+            const displayText = promptDisplayMap[prompt] || prompt;
+            
+            // Add user message to both chat panels with display text
+            addMessage(displayText, 'user', smollm2Messages);
+            addMessage(displayText, 'user', smollmMessages);
             
             // Disable all suggestion buttons
             document.querySelectorAll('.suggestion-button').forEach(btn => {
