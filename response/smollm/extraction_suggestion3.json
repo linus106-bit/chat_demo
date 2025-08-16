@@ -114,7 +114,6 @@
     {
       "step": 1,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Ċ9**",
       "filled_positions": [
         18,
         34,
@@ -125,7 +124,6 @@
     {
       "step": 2,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "5Ċ**9**",
       "filled_positions": [
         6,
         18,
@@ -139,7 +137,6 @@
     {
       "step": 3,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "5StorageĊ** Titan9**:**",
       "filled_positions": [
         6,
         11,
@@ -156,7 +153,6 @@
     {
       "step": 4,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product5StorageĊ** TitanPrice9**:** days",
       "filled_positions": [
         1,
         6,
@@ -176,7 +172,6 @@
     {
       "step": 5,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**:5Ċ** TitanPrice9**:** days",
       "filled_positions": [
         1,
         2,
@@ -199,7 +194,6 @@
     {
       "step": 6,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**:5Ċ** TitanPrice9**:****: - business days",
       "filled_positions": [
         1,
         2,
@@ -225,7 +219,6 @@
     {
       "step": 7,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**: 5Ċ** TitanPrice9**:Ċ**ipping**: - business days",
       "filled_positions": [
         1,
         2,
@@ -254,7 +247,6 @@
     {
       "step": 8,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**: 5Ċ**Material TitanPrice $9**:4Ċ**ipping**: - business days",
       "filled_positions": [
         1,
         2,
@@ -286,7 +278,6 @@
     {
       "step": 9,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**: 5GBĊ**Material TitanPrice $99**:4Ċ**ipping**: 2- business days",
       "filled_positions": [
         1,
         2,
@@ -321,7 +312,6 @@
     {
       "step": 10,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "Product**:5Storage**: 5GBĊ**Material TitanPrice $199**:4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         1,
         2,
@@ -359,7 +349,6 @@
     {
       "step": 11,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**:5Storage**: 56GBĊ**Material**: TitanPrice $199**:4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -400,7 +389,6 @@
     {
       "step": 12,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**:5Storage**: 56GBĊ**Material**: TitanPrice $11.99Ċ**:4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -444,7 +432,6 @@
     {
       "step": 13,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: 5Storage**: 56GBĊ**Material**: TitanĊPrice $11.99ĊColors**:4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -491,7 +478,6 @@
     {
       "step": 14,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: 5**Storage**: 56GBĊ**Material**: TitanĊPrice**: $11.99ĊColors**: 4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -541,7 +527,6 @@
     {
       "step": 15,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: iPhone 5 ProĊ**Storage**: 56GBĊ**Material**: TitanĊPrice**: $11.99ĊColors**: 4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -594,7 +579,6 @@
     {
       "step": 16,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: iPhone 15 ProĊ**Storage**: 56GBĊ**Material**: TitanĊPrice**: $1199.99ĊColors**: 4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -650,7 +634,6 @@
     {
       "step": 17,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: iPhone 15 Pro MaxĊ**Storage**: 256GBĊ**Material**: TitaniumĊPrice**: $1199.99ĊColors**: 4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,
@@ -709,7 +692,6 @@
     {
       "step": 18,
       "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
-      "response": "**Product**: iPhone 15 Pro MaxĊ**Storage**: 256GBĊ**Material**: TitaniumĊ**Price**: $1199.99Ċ**Colors**: 4Ċ**Shipping**: 2-3 business days",
       "filled_positions": [
         0,
         1,

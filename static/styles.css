@@ -374,6 +374,15 @@ input:checked + .demo-slider:before {
     line-height: 1.5;
 }
 
+/* Special styling for shuffled/diffusion generation */
+.message-text.shuffled-text {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #fef7ff, #f3e8ff);
+    border: 1px solid #e9d5ff;
+}
+
 /* Markdown Styling */
 .message-text h1,
 .message-text h2,

@@ -22,7 +22,6 @@
     {
       "step": 1,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": ".",
       "filled_positions": [
         6
       ],
@@ -31,7 +30,6 @@
     {
       "step": 2,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "the.",
       "filled_positions": [
         3,
         6
@@ -41,7 +39,6 @@
     {
       "step": 3,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "the store.",
       "filled_positions": [
         3,
         4,
@@ -52,7 +49,6 @@
     {
       "step": 4,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "went the store.",
       "filled_positions": [
         1,
         3,
@@ -64,7 +60,6 @@
     {
       "step": 5,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "I went the store.",
       "filled_positions": [
         0,
         1,
@@ -77,7 +72,6 @@
     {
       "step": 6,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "I went to the store.",
       "filled_positions": [
         0,
         1,
@@ -91,7 +85,6 @@
     {
       "step": 7,
       "prompt": "Correct this sentence: 'I goes to the store yesterday.'",
-      "response": "I went to the store yesterday.",
       "filled_positions": [
         0,
         1,

@@ -50,7 +50,6 @@
     {
       "step": 1,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum",
       "filled_positions": [
         0
       ],
@@ -59,7 +58,6 @@
     {
       "step": 2,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum.",
       "filled_positions": [
         0,
         20
@@ -69,7 +67,6 @@
     {
       "step": 3,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum a.",
       "filled_positions": [
         0,
         3,
@@ -80,7 +77,6 @@
     {
       "step": 4,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum a to.",
       "filled_positions": [
         0,
         3,
@@ -92,7 +88,6 @@
     {
       "step": 5,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum a to cannot.",
       "filled_positions": [
         0,
         3,
@@ -105,7 +100,6 @@
     {
       "step": 6,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum a technology to cannot.",
       "filled_positions": [
         0,
         3,
@@ -119,7 +113,6 @@
     {
       "step": 7,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a technology to cannot.",
       "filled_positions": [
         0,
         1,
@@ -134,7 +127,6 @@
     {
       "step": 8,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a technology mechanics to cannot.",
       "filled_positions": [
         0,
         1,
@@ -150,7 +142,6 @@
     {
       "step": 9,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology mechanics to cannot.",
       "filled_positions": [
         0,
         1,
@@ -167,7 +158,6 @@
     {
       "step": 10,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology mechanics to computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -185,7 +175,6 @@
     {
       "step": 11,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology mechanics to information computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -204,7 +193,6 @@
     {
       "step": 12,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology mechanics to information in computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -224,7 +212,6 @@
     {
       "step": 13,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology mechanics to information in ways computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -245,7 +232,6 @@
     {
       "step": 14,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology uses mechanics to information in ways computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -267,7 +253,6 @@
     {
       "step": 15,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology uses mechanics to information in ways that computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -290,7 +275,6 @@
     {
       "step": 16,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology uses mechanics to information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -314,7 +298,6 @@
     {
       "step": 17,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology uses mechanics principles to information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -339,7 +322,6 @@
     {
       "step": 18,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing a revolutionary technology that uses mechanics principles to information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -365,7 +347,6 @@
     {
       "step": 19,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing is a revolutionary technology that uses mechanics principles to information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -392,7 +373,6 @@
     {
       "step": 20,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,
@@ -420,7 +400,6 @@
     {
       "step": 21,
       "prompt": "Explain quantum computing in simple terms",
-      "response": "Quantum computing is a revolutionary technology that uses quantum mechanics principles to process information in ways that classical computers cannot.",
       "filled_positions": [
         0,
         1,

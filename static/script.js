@@ -158,11 +158,19 @@ document.addEventListener('DOMContentLoaded', function() {
                                 if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
                                     // Extract the complete response text
                                     const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
+                                    
+                                    // Apply special styling for shuffled text
+                                    textElement.classList.add('shuffled-text');
+                                    
+                                    // Use the text as-is (with blank spaces for unfilled positions)
                                     textElement.textContent = shuffledText;
+                                    
                                     demoFullText = shuffledText; // Update demo full text
                                     fullText = shuffledText; // Update full text
                                 } else {
                                     // Normal token streaming
+                                    textElement.classList.remove('shuffled-text'); // Remove shuffled styling for normal text
+                                    
                                     if (demoMode) {
                                         // For demo mode, accumulate the full response and display it
                                         demoFullText += data.token;

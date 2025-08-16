@@ -112,7 +112,6 @@
     {
       "step": 1,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**:ĊGrowth 5",
       "filled_positions": [
         3,
         9,
@@ -125,7 +124,6 @@
     {
       "step": 2,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**:ĊPro5ĊGrowth 5.5",
       "filled_positions": [
         3,
         9,
@@ -143,7 +141,6 @@
     {
       "step": 3,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**:ĊPro5ĊGrowth 15ĊStock**:.5 $",
       "filled_positions": [
         3,
         9,
@@ -166,7 +163,6 @@
     {
       "step": 4,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**: $Ċ**Pro5ĊGrowth 15.%ĊStock**:.5Market $",
       "filled_positions": [
         3,
         4,
@@ -194,7 +190,6 @@
     {
       "step": 5,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "****: $Ċ**Pro5MĊGrowth 15.%ĊStock**:2.5**Market Cap $",
       "filled_positions": [
         0,
         3,
@@ -227,7 +222,6 @@
     {
       "step": 6,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "****: $Ċ**Pro5MĊ**Growth 15.%Ċ**Stock**:12.5**Market Cap $52",
       "filled_positions": [
         0,
         3,
@@ -265,7 +259,6 @@
     {
       "step": 7,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "****: $Ċ**Profit5MĊ**Growth**: 15.%Ċ**Stock Price**:12.5**Market Cap**: $52B",
       "filled_positions": [
         0,
         3,
@@ -308,7 +301,6 @@
     {
       "step": 8,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**venue**: $Ċ**Profit**:5MĊ**Growth**: 15.2%Ċ**Stock Price**:12.5Ċ**Market Cap**: $5.2B",
       "filled_positions": [
         0,
         2,
@@ -356,7 +348,6 @@
     {
       "step": 9,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**venue**: $2.BĊ**Profit**:5MĊ**Growth**: 15.2%Ċ**Stock Price**: $125.5Ċ**Market Cap**: $5.2B",
       "filled_positions": [
         0,
         2,
@@ -409,7 +400,6 @@
     {
       "step": 10,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**Revenue**: $2.BĊ**Profit**: $450MĊ**Growth**: 15.2%Ċ**Stock Price**: $125.5Ċ**Market Cap**: $85.2B",
       "filled_positions": [
         0,
         1,
@@ -467,7 +457,6 @@
     {
       "step": 11,
       "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
-      "response": "**Revenue**: $2.5BĊ**Profit**: $450MĊ**Growth**: 15.2%Ċ**Stock Price**: $125.50Ċ**Market Cap**: $85.2B",
       "filled_positions": [
         0,
         1,

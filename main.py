@@ -334,15 +334,31 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
                 return
             
             if generation_type == "shuffled":
-                # Shuffled (diffusion-style) generation - send complete response for each step
+                # Shuffled (diffusion-style) generation - build response from input_ids and positions
                 for step in step_list:
-                    # Get the current response (which shows filled positions)
-                    current_response = step["response"]
+                    filled_positions = step["filled_positions"]
+                    total_positions = len(full_input_ids)
+                    
+                    # Build response text using only filled positions
+                    response_parts = []
+                    for pos in range(total_positions):
+                        # Always decode the token to get its exact length
+                        token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
+                        
+                        if pos in filled_positions:
+                            # Position is filled - use the actual decoded token
+                            response_parts.append(token_text)
+                        else:
+                            # Position is unfilled - use blank spaces with exact token length
+                            blank_space = " " * len(token_text)
+                            response_parts.append(blank_space)
+                    
+                    # Join all parts to create the complete response
+                    current_response = "".join(response_parts)
                     
                     # Send the complete response as a single update
-                    # This creates the diffusion effect where text appears/changes in different positions
                     yield f"__SHUFFLED_UPDATE__{current_response}"
-                    time.sleep(0.15)  # Slower update for diffusion effect visualization
+                    time.sleep(0.03)  # Same speed as sequential generation
             else:
                 # Sequential generation - stream using token indices
                 last_token_index = 0

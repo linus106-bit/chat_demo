@@ -75,14 +75,12 @@ Each JSON file contains the complete token sequence and streaming steps with tok
         {
             "step": 1,
             "prompt": "The original prompt",
-            "response": "Quantum",
             "filled_positions": [0],
             "total_positions": 6
         },
         {
             "step": 2,
             "prompt": "The original prompt",
-            "response": "Quantum a",
             "filled_positions": [0, 3],
             "total_positions": 6
         }
@@ -92,14 +90,31 @@ Each JSON file contains the complete token sequence and streaming steps with tok
 }
 ```
 
+**Note**: Shuffled responses are generated dynamically from `full_input_ids` and `filled_positions` - no pre-computed response text is stored.
+
+**Technical Implementation**:
+```python
+for pos in range(total_positions):
+    token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
+    if pos in filled_positions:
+        response_parts.append(token_text)  # Actual token
+    else:
+        response_parts.append(" " * len(token_text))  # Exact-length blank space
+```
+
 ## Usage
 
 - **Demo Mode**: When demo mode is enabled, the system loads responses from these files
 - **Model-Specific**: Each model uses its own folder for different response styles
 - **Token-Based Streaming**: Responses are streamed using actual input_ids for realistic token-by-token generation
 - **Generation Types**: 
-  - **Sequential** (SmolLM2): Traditional left-to-right token generation
-  - **Shuffled** (SmolLM): Diffusion-style generation where tokens appear in random positions
+  - **Sequential** (SmolLM2): Traditional left-to-right token generation (0.03s per step)
+  - **Shuffled** (SmolLM): Diffusion-style generation where tokens appear in random positions (0.03s per step)
+    - Uses blank spaces (`" " * len(decoded_token)`) for unfilled token positions
+    - Responses generated dynamically from `input_ids` and `filled_positions`
+    - Maintains exact token-length spacing throughout generation
+    - Special purple styling in UI to distinguish from sequential generation
+    - Same speed as sequential generation for consistent user experience
 - **Offline**: Works without requiring actual model loading
 - **Fallback**: If tokenizer is unavailable, falls back to text-based streaming
 
