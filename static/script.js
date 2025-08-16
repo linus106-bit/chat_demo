@@ -374,5 +374,27 @@ document.addEventListener('DOMContentLoaded', function() {
     checkModelStatus();
     setInterval(checkModelStatus, 5000);
 
+    // Refresh button functionality
+    const refreshButton = document.getElementById('refreshButton');
+    refreshButton.addEventListener('click', function() {
+        // Clear all chat messages from all tabs
+        ['general', 'correction', 'extraction'].forEach(mode => {
+            const smollm2Messages = document.getElementById(`${mode}Smollm2Messages`);
+            const smollmMessages = document.getElementById(`${mode}SmollmMessages`);
+            
+            if (smollm2Messages) clearChatHistory(smollm2Messages);
+            if (smollmMessages) clearChatHistory(smollmMessages);
+        });
+        
+        // Add a subtle animation to the refresh icon
+        const refreshIcon = refreshButton.querySelector('.refresh-icon');
+        refreshIcon.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            refreshIcon.style.transform = 'rotate(0deg)';
+        }, 300);
+        
+        console.log('All chat history cleared');
+    });
+
     // Initialize the interface - no input to focus anymore
 });
