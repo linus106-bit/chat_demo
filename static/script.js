@@ -154,14 +154,24 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                             
                             if (data.token) {
-                                if (demoMode) {
-                                    // For demo mode, accumulate the full response and display it
-                                    demoFullText += data.token;
-                                    textElement.textContent = demoFullText;
+                                // Check if this is a shuffled update
+                                if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
+                                    // Extract the complete response text
+                                    const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
+                                    textElement.textContent = shuffledText;
+                                    demoFullText = shuffledText; // Update demo full text
+                                    fullText = shuffledText; // Update full text
                                 } else {
-                                    // For live mode, accumulate tokens
-                                    fullText += data.token;
-                                    textElement.textContent = fullText;
+                                    // Normal token streaming
+                                    if (demoMode) {
+                                        // For demo mode, accumulate the full response and display it
+                                        demoFullText += data.token;
+                                        textElement.textContent = demoFullText;
+                                    } else {
+                                        // For live mode, accumulate tokens
+                                        fullText += data.token;
+                                        textElement.textContent = fullText;
+                                    }
                                 }
                                 // Auto-scroll to bottom
                                 container.scrollTop = container.scrollHeight;

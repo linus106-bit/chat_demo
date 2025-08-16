@@ -312,11 +312,18 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
         model_info = models.get(model_key, {})
         tokenizer = model_info.get("tokenizer")
         
-        if not tokenizer:
-            # Fallback to text-based streaming if no tokenizer available
-            last_response = ""
-            for step in steps:
-                if isinstance(step, dict) and "response" in step:
+        # Check if this is the new JSON format
+        if isinstance(steps, dict) and "full_input_ids" in steps and "steps" in steps:
+            # New format with full_input_ids and token indices
+            full_input_ids = steps["full_input_ids"]
+            full_tokens = steps["full_tokens"]
+            step_list = steps["steps"]
+            generation_type = steps.get("generation_type", "sequential")
+            
+            if not tokenizer:
+                # Fallback to text-based streaming if no tokenizer available
+                last_response = ""
+                for step in step_list:
                     response = step["response"]
                     if len(response) > len(last_response):
                         new_part = response[len(last_response):]
@@ -324,27 +331,71 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
                             yield new_part
                             time.sleep(0.05)
                     last_response = response
-            return
-        
-        # Stream using input_ids - each step represents new tokens to add
-        last_input_ids = []
-        for step in steps:
-            if isinstance(step, dict) and "tokenization" in step:
-                current_input_ids = step["tokenization"]["input_ids"]
-                print(current_input_ids)
-                
-                # Calculate new tokens to add (difference from previous step)
-                if len(current_input_ids) > len(last_input_ids):
-                    new_token_ids = current_input_ids[len(last_input_ids):]
+                return
+            
+            if generation_type == "shuffled":
+                # Shuffled (diffusion-style) generation - send complete response for each step
+                for step in step_list:
+                    # Get the current response (which shows filled positions)
+                    current_response = step["response"]
                     
-                    # Convert new token IDs to text
-                    for token_id in new_token_ids:
-                        token_text = tokenizer.decode([token_id], skip_special_tokens=True)
-                        if token_text:
-                            yield token_text
-                            time.sleep(0.03)  # Slightly faster for token-by-token
-                
-                last_input_ids = current_input_ids
+                    # Send the complete response as a single update
+                    # This creates the diffusion effect where text appears/changes in different positions
+                    yield f"__SHUFFLED_UPDATE__{current_response}"
+                    time.sleep(0.15)  # Slower update for diffusion effect visualization
+            else:
+                # Sequential generation - stream using token indices
+                last_token_index = 0
+                for step in step_list:
+                    current_token_index = step["token_index"]
+                    
+                    # Calculate new tokens to add (from last_token_index to current_token_index)
+                    if current_token_index > last_token_index:
+                        new_token_ids = full_input_ids[last_token_index:current_token_index]
+                        
+                        # Convert new token IDs to text
+                        for token_id in new_token_ids:
+                            token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                            if token_text:
+                                yield token_text
+                                time.sleep(0.03)  # Slightly faster for token-by-token
+                    
+                    last_token_index = current_token_index
+        
+        else:
+            # Legacy format - fallback for old JSON structure
+            if not tokenizer:
+                # Fallback to text-based streaming if no tokenizer available
+                last_response = ""
+                for step in steps:
+                    if isinstance(step, dict) and "response" in step:
+                        response = step["response"]
+                        if len(response) > len(last_response):
+                            new_part = response[len(last_response):]
+                            if new_part:
+                                yield new_part
+                                time.sleep(0.05)
+                        last_response = response
+                return
+            
+            # Stream using input_ids - each step represents new tokens to add (legacy)
+            last_input_ids = []
+            for step in steps:
+                if isinstance(step, dict) and "tokenization" in step:
+                    current_input_ids = step["tokenization"]["input_ids"]
+                    
+                    # Calculate new tokens to add (difference from previous step)
+                    if len(current_input_ids) > len(last_input_ids):
+                        new_token_ids = current_input_ids[len(last_input_ids):]
+                        
+                        # Convert new token IDs to text
+                        for token_id in new_token_ids:
+                            token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                            if token_text:
+                                yield token_text
+                                time.sleep(0.03)  # Slightly faster for token-by-token
+                    
+                    last_input_ids = current_input_ids
             
     except Exception as e:
         yield f"Demo error: {str(e)}"

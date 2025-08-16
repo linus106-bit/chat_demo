@@ -37,32 +37,59 @@ response/
 
 ## File Format
 
-Each JSON file contains an array of streaming steps with tokenization data:
+Each JSON file contains the complete token sequence and streaming steps with token indices:
 
+### Sequential Generation Format (SmolLM2):
 ```json
-[
-    {
-        "step": 1,
-        "prompt": "The original prompt",
-        "response": "Partial response at step 1",
-        "tokenization": {
-            "input_ids": [48021],
-            "tokens": ["Quantum"],
-            "token_count": 1
+{
+    "full_input_ids": [48021, 7867, 314, 253, 11951, 1835],
+    "full_tokens": ["Quantum", "Ġcomputing", "Ġis", "Ġa", "Ġrevolutionary", "Ġtechnology"],
+    "total_tokens": 6,
+    "steps": [
+        {
+            "step": 1,
+            "prompt": "The original prompt",
+            "response": "Quantum",
+            "token_index": 1
+        },
+        {
+            "step": 2,
+            "prompt": "The original prompt", 
+            "response": "Quantum computing",
+            "token_index": 2
         }
-    },
-    {
-        "step": 2,
-        "prompt": "The original prompt", 
-        "response": "Partial response at step 2",
-        "tokenization": {
-            "input_ids": [48021, 7867],
-            "tokens": ["Quantum", "Ġcomputing"],
-            "token_count": 2
+        // ... more steps
+    ],
+    "model_info": { /* model metadata */ }
+}
+```
+
+### Shuffled Generation Format (SmolLM):
+```json
+{
+    "full_input_ids": [48021, 7867, 314, 253, 11951, 1835],
+    "full_tokens": ["Quantum", "Ġcomputing", "Ġis", "Ġa", "Ġrevolutionary", "Ġtechnology"],
+    "total_tokens": 6,
+    "generation_type": "shuffled",
+    "steps": [
+        {
+            "step": 1,
+            "prompt": "The original prompt",
+            "response": "Quantum",
+            "filled_positions": [0],
+            "total_positions": 6
+        },
+        {
+            "step": 2,
+            "prompt": "The original prompt",
+            "response": "Quantum a",
+            "filled_positions": [0, 3],
+            "total_positions": 6
         }
-    }
-    // ... more steps
-]
+        // ... more steps with random token positions
+    ],
+    "model_info": { /* model metadata */ }
+}
 ```
 
 ## Usage
@@ -70,6 +97,9 @@ Each JSON file contains an array of streaming steps with tokenization data:
 - **Demo Mode**: When demo mode is enabled, the system loads responses from these files
 - **Model-Specific**: Each model uses its own folder for different response styles
 - **Token-Based Streaming**: Responses are streamed using actual input_ids for realistic token-by-token generation
+- **Generation Types**: 
+  - **Sequential** (SmolLM2): Traditional left-to-right token generation
+  - **Shuffled** (SmolLM): Diffusion-style generation where tokens appear in random positions
 - **Offline**: Works without requiring actual model loading
 - **Fallback**: If tokenizer is unavailable, falls back to text-based streaming
 

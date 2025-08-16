@@ -1,143 +1,152 @@
-[
-  {
-    "step": 1,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780
+{
+  "full_input_ids": [
+    18,
+    1780,
+    655,
+    314,
+    357,
+    4817,
+    1041,
+    3413,
+    30
+  ],
+  "full_tokens": [
+    "\"",
+    "What",
+    "Ġtime",
+    "Ġis",
+    "Ġit",
+    "?\"",
+    "Ġshe",
+    "Ġasked",
+    "."
+  ],
+  "total_tokens": 9,
+  "steps": [
+    {
+      "step": 1,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "asked",
+      "filled_positions": [
+        7
       ],
-      "tokens": [
-        "\"",
-        "What"
+      "total_positions": 9
+    },
+    {
+      "step": 2,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "What asked",
+      "filled_positions": [
+        1,
+        7
       ],
-      "token_count": 2
+      "total_positions": 9
+    },
+    {
+      "step": 3,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What asked",
+      "filled_positions": [
+        0,
+        1,
+        7
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 4,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What asked.",
+      "filled_positions": [
+        0,
+        1,
+        7,
+        8
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 5,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What she asked.",
+      "filled_positions": [
+        0,
+        1,
+        6,
+        7,
+        8
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 6,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What it she asked.",
+      "filled_positions": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 7,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What it?\" she asked.",
+      "filled_positions": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 8,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What time it?\" she asked.",
+      "filled_positions": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "total_positions": 9
+    },
+    {
+      "step": 9,
+      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "response": "\"What time is it?\" she asked.",
+      "filled_positions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "total_positions": 9
     }
-  },
-  {
-    "step": 2,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What time",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780,
-        655
-      ],
-      "tokens": [
-        "\"",
-        "What",
-        "Ġtime"
-      ],
-      "token_count": 3
-    }
-  },
-  {
-    "step": 3,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What time is",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780,
-        655,
-        314
-      ],
-      "tokens": [
-        "\"",
-        "What",
-        "Ġtime",
-        "Ġis"
-      ],
-      "token_count": 4
-    }
-  },
-  {
-    "step": 4,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What time is it?\"",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780,
-        655,
-        314,
-        357,
-        4817
-      ],
-      "tokens": [
-        "\"",
-        "What",
-        "Ġtime",
-        "Ġis",
-        "Ġit",
-        "?\""
-      ],
-      "token_count": 6
-    }
-  },
-  {
-    "step": 5,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What time is it?\" she",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780,
-        655,
-        314,
-        357,
-        4817,
-        1041
-      ],
-      "tokens": [
-        "\"",
-        "What",
-        "Ġtime",
-        "Ġis",
-        "Ġit",
-        "?\"",
-        "Ġshe"
-      ],
-      "token_count": 7
-    }
-  },
-  {
-    "step": 6,
-    "prompt": "Fix punctuation: 'What time is it she asked'",
-    "response": "\"What time is it?\" she asked.",
-    "tokenization": {
-      "input_ids": [
-        18,
-        1780,
-        655,
-        314,
-        357,
-        4817,
-        1041,
-        3413,
-        30
-      ],
-      "tokens": [
-        "\"",
-        "What",
-        "Ġtime",
-        "Ġis",
-        "Ġit",
-        "?\"",
-        "Ġshe",
-        "Ġasked",
-        "."
-      ],
-      "token_count": 9
-    }
-  },
-  {
+  ],
+  "model_info": {
     "model": "HuggingFaceTB/SmolLM-135M-Instruct",
     "tokenizer_info": {
       "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
       "vocab_size": 49152
     }
-  }
-]
+  },
+  "generation_type": "shuffled"
+}
