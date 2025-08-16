@@ -15,62 +15,32 @@ from contextlib import asynccontextmanager
 import threading
 import queue
 
-# Global variables for models
-models = {
-    "smollm2": {"model": None, "tokenizer": None, "name": "SmolLM2-135M-Instruct"},
-    "smollm": {"model": None, "tokenizer": None, "name": "SmolLM-135M-Instruct"}
-}
+# Import model manager
+from model_manager import model_manager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan event handler for loading and unloading models"""
     # Startup: Load models
-    print("Loading SmolLM models...")
+    print("🚀 Starting OpenLab Chat Demo...")
     
-    # Load SmolLM2-135M-Instruct
-    try:
-        print("Loading SmolLM2-135M-Instruct...")
-        model_name = "HuggingFaceTB/SmolLM2-135M-Instruct"
-        models["smollm2"]["tokenizer"] = AutoTokenizer.from_pretrained(model_name)
-        models["smollm2"]["model"] = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype='auto',
-            trust_remote_code=True
-        )
-        print("SmolLM2-135M-Instruct loaded successfully!")
-    except Exception as e:
-        print(f"Error loading SmolLM2-135M-Instruct: {e}")
-        models["smollm2"]["model"] = None
-        models["smollm2"]["tokenizer"] = None
-
-    # Load SmolLM-135M-Instruct
-    try:
-        print("Loading SmolLM-135M-Instruct...")
-        model_name = "HuggingFaceTB/SmolLM-135M-Instruct"
-        models["smollm"]["tokenizer"] = AutoTokenizer.from_pretrained(model_name)
-        models["smollm"]["model"] = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype='auto',
-            trust_remote_code=True
-        )
-        print("SmolLM-135M-Instruct loaded successfully!")
-    except Exception as e:
-        print(f"Error loading SmolLM-135M-Instruct: {e}")
-        models["smollm"]["model"] = None
-        models["smollm"]["tokenizer"] = None
+    # Load all enabled models using model manager
+    load_results = model_manager.load_all_models()
+    
+    if all(load_results.values()):
+        print("🎉 All models loaded successfully!")
+    else:
+        failed_models = [model for model, success in load_results.items() if not success]
+        print(f"⚠️  Some models failed to load: {failed_models}")
+    
+    print("🎉 OpenLab Chat Demo started successfully!")
     
     yield
     
     # Shutdown: Clean up models
-    print("Shutting down models...")
-    for model_key in models:
-        if models[model_key]["model"] is not None:
-            del models[model_key]["model"]
-            models[model_key]["model"] = None
-        if models[model_key]["tokenizer"] is not None:
-            del models[model_key]["tokenizer"]
-            models[model_key]["tokenizer"] = None
-    print("Models cleaned up successfully!")
+    print("🛑 Shutting down OpenLab Chat Demo...")
+    model_manager.unload_all_models()
+    print("✅ Models cleaned up successfully")
 
 app = FastAPI(
     title="OpenLab Chat Demo", 
@@ -114,7 +84,7 @@ class CustomTextStreamer(TextStreamer):
 
 def generate_response(prompt: str, model_key: str, mode: str = "general") -> str:
     """Generate response using the specified model and mode"""
-    model_info = models[model_key]
+    model_info = model_manager.get_loaded_model(model_key)
     
     if model_info["model"] is None or model_info["tokenizer"] is None:
         # Mock response for demo purposes
@@ -171,7 +141,7 @@ def generate_response(prompt: str, model_key: str, mode: str = "general") -> str
 
 def generate_streaming_response(prompt: str, model_key: str, mode: str = "general"):
     """Generate streaming response using the specified model and mode"""
-    model_info = models[model_key]
+    model_info = model_manager.get_loaded_model(model_key)
     
     if model_info["model"] is None or model_info["tokenizer"] is None:
         # Mock streaming for demo purposes
@@ -243,35 +213,19 @@ def generate_streaming_response(prompt: str, model_key: str, mode: str = "genera
         yield f"Sorry, I encountered an error: {str(e)}"
 
 def get_actual_prompt(key: str) -> str:
-    """Get actual prompt text from JSON file or fallback to hardcoded mapping"""
-    # First try to get prompt from JSON file
+    """Get actual prompt text from model manager or fallback"""
+    # First try to get prompt from model manager configuration
+    prompt = model_manager.get_prompt_from_suggestion_key(key)
+    if prompt:
+        return prompt
+    
+    # Fallback: try to get from JSON file
     prompt_from_file = get_prompt_from_json(key)
     if prompt_from_file:
         return prompt_from_file
     
-    # Fallback to hardcoded mapping
-    prompt_map = {
-        # General Chat
-        'general_suggestion1': 'Explain quantum computing in simple terms',
-        'general_suggestion2': 'Write a Python function to calculate fibonacci numbers',
-        'general_suggestion3': 'What are the benefits of renewable energy?',
-        'general_suggestion4': 'How do I start learning machine learning?',
-        
-        # Correction
-        'correction_suggestion1': 'I cant beleive its already december and i havent finished my homwork yet.',
-        'correction_suggestion2': 'Their going to there house to get they\'re things.',
-        'correction_suggestion3': 'The meeting will be held on Monday, Wenesday, and friday at 3pm.',
-        'correction_suggestion4': 'Please find attached the documents you requested. I hope this helps with you\'re project.',
-        
-        # Extraction
-        'extraction_suggestion1': 'John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985',
-        'extraction_suggestion2': 'Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)',
-        'extraction_suggestion3': 'Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes',
-        'extraction_suggestion4': 'Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105'
-    }
-    
-    # Return mapped prompt or the original key if no mapping found
-    return prompt_map.get(key, key)
+    # Final fallback: return the key itself
+    return key
 
 def get_prompt_from_json(key: str) -> str:
     """Try to get prompt text from JSON file"""
@@ -311,51 +265,21 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
     """Generate demo streaming response from pre-saved JSON files using input_ids"""
     import time
     
-    # Map simple keys to their corresponding JSON files for each model
-    prompt_to_file = {
-        "smollm2": {
-            # General Chat suggestions
-            "general_suggestion1": "general_suggestion1.json",
-            "general_suggestion2": "general_suggestion2.json", 
-            "general_suggestion3": "general_suggestion3.json",
-            "general_suggestion4": "general_suggestion4.json",
-            
-            # Correction suggestions
-            "correction_suggestion1": "correction_suggestion1.json",
-            "correction_suggestion2": "correction_suggestion2.json",
-            "correction_suggestion3": "correction_suggestion3.json",
-            "correction_suggestion4": "correction_suggestion4.json",
-            
-            # Extraction suggestions
-            "extraction_suggestion1": "extraction_suggestion1.json",
-            "extraction_suggestion2": "extraction_suggestion2.json",
-            "extraction_suggestion3": "extraction_suggestion3.json",
-            "extraction_suggestion4": "extraction_suggestion4.json"
-        },
-        "smollm": {
-            # General Chat suggestions
-            "general_suggestion1": "general_suggestion1.json",
-            "general_suggestion2": "general_suggestion2.json", 
-            "general_suggestion3": "general_suggestion3.json",
-            "general_suggestion4": "general_suggestion4.json",
-            
-            # Correction suggestions
-            "correction_suggestion1": "correction_suggestion1.json",
-            "correction_suggestion2": "correction_suggestion2.json",
-            "correction_suggestion3": "correction_suggestion3.json",
-            "correction_suggestion4": "correction_suggestion4.json",
-            
-            # Extraction suggestions
-            "extraction_suggestion1": "extraction_suggestion1.json",
-            "extraction_suggestion2": "extraction_suggestion2.json",
-            "extraction_suggestion3": "extraction_suggestion3.json",
-            "extraction_suggestion4": "extraction_suggestion4.json"
-        }
-    }
+    # Get model configuration
+    model_config = model_manager.get_model_config(model_key)
+    if not model_config:
+        # Fallback response if model not found
+        fallback_text = f"Demo response for {model_key}: {prompt[:50]}..."
+        for word in fallback_text.split():
+            yield word + " "
+            time.sleep(0.1)
+        return
     
-    # Find the matching file for this prompt and model
-    model_prompts = prompt_to_file.get(model_key, {})
-    filename = model_prompts.get(prompt)
+    # Get demo folder from model config
+    demo_folder = model_config.get("demo_folder", model_key)
+    
+    # Try to find JSON file for this suggestion
+    filename = f"{prompt}.json"
     if not filename:
         # Fallback response if prompt doesn't match
         fallback_text = f"Demo response for {model_key}: {prompt[:50]}..."
@@ -366,12 +290,12 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
     
     try:
         # Load the JSON file from model-specific folder
-        filepath = f"response/{model_key}/{filename}"
+        filepath = f"response/{demo_folder}/{filename}"
         with open(filepath, 'r') as f:
             steps = json.load(f)
         
         # Get the tokenizer for this model
-        model_info = models.get(model_key, {})
+        model_info = model_manager.get_loaded_model(model_key)
         tokenizer = model_info.get("tokenizer")
         
         # Check if this is the new JSON format
@@ -483,6 +407,15 @@ async def home(request: Request):
     """Render the main chat interface"""
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/api/config")
+async def get_config():
+    """Get frontend configuration including models, suggestions, and tabs"""
+    return {
+        "models": model_manager.get_enabled_models(),
+        "suggestions": model_manager.config["suggestions"],
+        "tabs": model_manager.get_tabs()
+    }
+
 @app.get("/chat_stream")
 async def chat_stream(message: str, mode: str = "general", model: str = "smollm2", demo: bool = False):
     """Stream chat response for a single model"""
@@ -519,10 +452,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy", 
-        "models": {
-            "smollm2": {"loaded": models["smollm2"]["model"] is not None, "name": models["smollm2"]["name"]},
-            "smollm": {"loaded": models["smollm"]["model"] is not None, "name": models["smollm"]["name"]}
-        }
+        "models": model_manager.get_model_status()
     }
 
 if __name__ == "__main__":

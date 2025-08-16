@@ -1,0 +1,121 @@
+{
+  "models": [
+    {
+      "key": "smollm2",
+      "name": "SmolLM2-135M-Instruct",
+      "display_name": "SmolLM2-135M-Instruct",
+      "huggingface_id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "avatar": "🚀",
+      "generation_type": "sequential",
+      "enabled": true,
+      "demo_folder": "smollm2"
+    },
+    {
+      "key": "smollm",
+      "name": "SmolLM-135M-Instruct", 
+      "display_name": "SmolLM-135M-Instruct",
+      "huggingface_id": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "avatar": "⚡",
+      "generation_type": "shuffled",
+      "enabled": true,
+      "demo_folder": "smollm"
+    }
+  ],
+  "suggestions": [
+    {
+      "key": "general_suggestion1",
+      "category": "general",
+      "title": "🔬 Explain quantum computing in simple terms",
+      "prompt": "Explain quantum computing in simple terms"
+    },
+    {
+      "key": "general_suggestion2", 
+      "category": "general",
+      "title": "🐍 Write a Python function to calculate fibonacci numbers",
+      "prompt": "Write a Python function to calculate fibonacci numbers"
+    },
+    {
+      "key": "general_suggestion3",
+      "category": "general", 
+      "title": "🌱 What are the benefits of renewable energy?",
+      "prompt": "What are the benefits of renewable energy?"
+    },
+    {
+      "key": "general_suggestion4",
+      "category": "general",
+      "title": "🤖 How do I start learning machine learning?", 
+      "prompt": "How do I start learning machine learning?"
+    },
+    {
+      "key": "correction_suggestion1",
+      "category": "correction",
+      "title": "🔍 Fix: \"I cant beleive its already december and i havent finished my homwork yet.\"",
+      "prompt": "I cant beleive its already december and i havent finished my homwork yet."
+    },
+    {
+      "key": "correction_suggestion2",
+      "category": "correction", 
+      "title": "📚 Correct: \"Their going to there house to get they're things.\"",
+      "prompt": "Their going to there house to get they're things."
+    },
+    {
+      "key": "correction_suggestion3",
+      "category": "correction",
+      "title": "📅 Fix: \"The meeting will be held on Monday, Wenesday, and friday at 3pm.\"",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm."
+    },
+    {
+      "key": "correction_suggestion4",
+      "category": "correction",
+      "title": "💼 Business: \"Please find attached the documents you requested. I hope this helps with you're project.\"",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project."
+    },
+    {
+      "key": "extraction_suggestion1",
+      "category": "extraction",
+      "title": "👤 Personal Info: Extract from contact details",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985"
+    },
+    {
+      "key": "extraction_suggestion2",
+      "category": "extraction",
+      "title": "🧾 Invoice: Extract financial data", 
+      "prompt": "Invoice #INV-2024-001, Date: March 15, 2024, Total: $1,234.56, Customer: ABC Corp, Items: 5x Laptops ($200 each), 3x Monitors ($150 each)"
+    },
+    {
+      "key": "extraction_suggestion3",
+      "category": "extraction",
+      "title": "📅 Meeting: Extract schedule information",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes"
+    },
+    {
+      "key": "extraction_suggestion4", 
+      "category": "extraction",
+      "title": "🏢 Business: Extract company data",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105"
+    }
+  ],
+  "tabs": [
+    {
+      "id": "general",
+      "name": "General Chat",
+      "icon": "💬",
+      "title": "💬 Try these general questions:",
+      "active": true
+    },
+    {
+      "id": "correction", 
+      "name": "Correction",
+      "icon": "✏️",
+      "title": "✏️ Try these text correction examples:",
+      "active": false
+    },
+    {
+      "id": "extraction",
+      "name": "Key Value Extraction", 
+      "icon": "🔍",
+      "title": "🔍 Try these extraction examples:",
+      "active": false
+    }
+  ]
+}
