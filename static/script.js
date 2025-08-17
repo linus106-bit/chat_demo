@@ -424,5 +424,99 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('All chat history cleared');
     });
 
+    // Remask button functionality
+    console.log('Looking for remask button...');
+    const remaskButton = document.getElementById('remaskButton');
+    console.log('Remask button found:', remaskButton);
+    if (remaskButton) {
+        remaskButton.addEventListener('click', async function() {
+            console.log('Remask button clicked!');
+            // Only work when correction tab is active
+            if (currentTab !== 'correction') {
+                console.log('Remask button only works in correction tab. Current tab:', currentTab);
+                return;
+            }
+
+            // Get the correction tab's message containers
+            const smollm2Messages = document.getElementById('correctionSmollm2Messages');
+            const smollmMessages = document.getElementById('correctionSmollmMessages');
+
+            console.log('Message containers found:', { smollm2Messages, smollmMessages });
+
+            if (!smollm2Messages || !smollmMessages) {
+                console.error('Message containers not found');
+                return;
+            }
+
+            // Check if there's a previous assistant message to repeat
+            const lastAssistantMessageSmollm2 = smollm2Messages.querySelector('.message.assistant:last-child .message-text');
+            const lastAssistantMessageSmollm = smollmMessages.querySelector('.message.assistant:last-child .message-text');
+            
+            console.log('Previous assistant messages found:', { lastAssistantMessageSmollm2, lastAssistantMessageSmollm });
+            
+            // Debug: Let's see what's actually in the containers
+            console.log('All messages in SmolLM2 container:', smollm2Messages.innerHTML);
+            console.log('All messages in SmolLM container:', smollmMessages.innerHTML);
+            
+            // Try a different selector approach
+            const allAssistantMessagesSmollm2 = smollm2Messages.querySelectorAll('.assistant-message');
+            const allAssistantMessagesSmollm = smollmMessages.querySelectorAll('.assistant-message');
+            
+            console.log('All assistant messages found:', { 
+                smollm2: allAssistantMessagesSmollm2.length, 
+                smollm: allAssistantMessagesSmollm.length 
+            });
+            
+            // Get the previous assistant responses (or use default if none exist)
+            let previousResponseSmollm2, previousResponseSmollm;
+            
+            if (allAssistantMessagesSmollm2.length > 0) {
+                const lastAssistantDiv = allAssistantMessagesSmollm2[allAssistantMessagesSmollm2.length - 1];
+                const messageText = lastAssistantDiv.querySelector('.message-text');
+                previousResponseSmollm2 = messageText ? (messageText.textContent || messageText.innerText) : 
+                    "I don't see any previous response to correct. Please try one of the example corrections first.";
+            } else {
+                previousResponseSmollm2 = "I don't see any previous response to correct. Please try one of the example corrections first.";
+            }
+            
+            if (allAssistantMessagesSmollm.length > 0) {
+                const lastAssistantDiv = allAssistantMessagesSmollm[allAssistantMessagesSmollm.length - 1];
+                const messageText = lastAssistantDiv.querySelector('.message-text');
+                previousResponseSmollm = messageText ? (messageText.textContent || messageText.innerText) : 
+                    "I don't see any previous response to correct. Please try one of the example corrections first.";
+            } else {
+                previousResponseSmollm = "I don't see any previous response to correct. Please try one of the example corrections first.";
+            }
+            
+            console.log('Previous responses:', { previousResponseSmollm2, previousResponseSmollm });
+            
+            // Disable the remask button during processing
+            remaskButton.disabled = true;
+
+            try {
+                console.log('Adding new user message...');
+                // Add new user message: "Correct the upper answer"
+                addMessage("Correct the upper answer", 'user', smollm2Messages);
+                addMessage("Correct the upper answer", 'user', smollmMessages);
+                
+                console.log('Adding assistant responses...');
+                // Add assistant responses that repeat the previous answers
+                addMessage(previousResponseSmollm2, 'assistant', smollm2Messages);
+                addMessage(previousResponseSmollm, 'assistant', smollmMessages);
+                
+                console.log('Remask completed successfully!');
+                
+            } catch (error) {
+                console.error('Error during remask:', error);
+                addMessage('Sorry, I encountered an error during remask. Please try again.', 'assistant', smollm2Messages);
+                addMessage('Sorry, I encountered an error during remask. Please try again.', 'assistant', smollmMessages);
+            } finally {
+                remaskButton.disabled = false;
+            }
+        });
+    } else {
+        console.error('Remask button not found in DOM');
+    }
+
     // Initialize the interface - no input to focus anymore
 });
