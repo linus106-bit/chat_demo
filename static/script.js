@@ -532,6 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Check if demo mode is enabled
                 const demoMode = document.getElementById('demoModeToggle').checked;
+                console.log('Demo mode:', demoMode, 'Suggestion number:', suggestionNumber, 'Current turn:', currentTurn);
                 
                 if (demoMode && suggestionNumber !== null && currentTurn >= 0) {
                     // Use the new remask endpoint for demo mode
@@ -540,12 +541,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Create streaming messages for both models
                     const smollm2MessageId = addStreamingMessage(smollm2Messages);
                     const smollmMessageId = addStreamingMessage(smollmMessages);
+                    console.log('Created streaming message IDs:', { smollm2MessageId, smollmMessageId });
                     
                     // Get the message elements
                     const smollm2MessageElement = document.getElementById(smollm2MessageId);
                     const smollmMessageElement = document.getElementById(smollmMessageId);
                     const smollm2TextElement = smollm2MessageElement.querySelector('.message-text');
                     const smollmTextElement = smollmMessageElement.querySelector('.message-text');
+                    console.log('Found text elements:', { 
+                        smollm2TextElement: !!smollm2TextElement, 
+                        smollmTextElement: !!smollmTextElement 
+                    });
                     
                     // For SmolLM2, we'll use the previous response with normal streaming
                     const streamText = async (text, textElement, delay = 50) => {
@@ -558,6 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // For SmolLM, use the remask endpoint to get the next turn
                     const fetchRemaskResponse = async (suggestion, turn, model, container) => {
+                        console.log('fetchRemaskResponse called with:', { suggestion, turn, model });
                         try {
                             const url = `/remask_stream?suggestion=correction_suggestion${suggestion}&turn=${turn}&mode=correction&model=${model}`;
                             console.log('Fetching remask URL:', url);
@@ -593,15 +600,20 @@ document.addEventListener('DOMContentLoaded', function() {
                                             }
                                             
                                             if (data.done) {
+                                                console.log('Stream done, removing shuffled-text class');
+                                                smollmTextElement.classList.remove('shuffled-text');
                                                 return;
                                             }
                                             
                                             if (data.token) {
+                                                console.log('Received token:', data.token);
                                                 if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
                                                     const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
+                                                    console.log('Processing shuffled text:', shuffledText);
                                                     smollmTextElement.classList.add('shuffled-text');
                                                     smollmTextElement.textContent = shuffledText;
                                                 } else {
+                                                    console.log('Processing normal token:', data.token);
                                                     smollmTextElement.classList.remove('shuffled-text');
                                                     smollmTextElement.textContent += data.token;
                                                 }
@@ -618,13 +630,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                     
                     // Stream both responses
+                    console.log('Starting demo mode streams...');
                     const streamPromise1 = streamText(previousResponseSmollm2, smollm2TextElement);
                     const streamPromise2 = fetchRemaskResponse(suggestionNumber, currentTurn, 'smollm', smollmMessages);
                     
                     // Wait for both streams to complete
                     await Promise.all([streamPromise1, streamPromise2]);
+                    console.log('Demo mode streams completed');
                     
                 } else {
+                    console.log('Using fallback path (non-demo mode or no suggestion number)');
                     // Fallback to previous behavior for non-demo mode or when JSON not available
                     const streamText = async (text, textElement, delay = 50) => {
                         const words = text.split(' ');
@@ -692,11 +707,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 if (data.token) {
                                                     if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
                                                         const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
-                                                        textElement.classList.add('shuffled-text');
-                                                        textElement.textContent = shuffledText;
+                                                        smollmTextElement.classList.add('shuffled-text');
+                                                        smollmTextElement.textContent = shuffledText;
                                                     } else {
-                                                        textElement.classList.remove('shuffled-text');
-                                                        textElement.textContent += data.token;
+                                                        smollmTextElement.classList.remove('shuffled-text');
+                                                        smollmTextElement.textContent += data.token;
                                                     }
                                                 }
                                             } catch (e) {
