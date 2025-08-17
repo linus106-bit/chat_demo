@@ -26,37 +26,37 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What",
       "token_index": 2
     },
     {
       "step": 2,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What time",
       "token_index": 3
     },
     {
       "step": 3,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What time is",
       "token_index": 4
     },
     {
       "step": 4,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What time is it?\"",
       "token_index": 6
     },
     {
       "step": 5,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What time is it?\" she",
       "token_index": 7
     },
     {
       "step": 6,
-      "prompt": "Fix punctuation: 'What time is it she asked'",
+      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
       "response": "\"What time is it?\" she asked.",
       "token_index": 9
     }

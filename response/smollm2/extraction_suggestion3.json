@@ -114,103 +114,103 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**:",
       "token_index": 3
     },
     {
       "step": 2,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone",
       "token_index": 4
     },
     {
       "step": 3,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15",
       "token_index": 7
     },
     {
       "step": 4,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro",
       "token_index": 8
     },
     {
       "step": 5,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max",
       "token_index": 9
     },
     {
       "step": 6,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**:",
       "token_index": 13
     },
     {
       "step": 7,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB",
       "token_index": 18
     },
     {
       "step": 8,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**:",
       "token_index": 22
     },
     {
       "step": 9,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium",
       "token_index": 24
     },
     {
       "step": 10,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**:",
       "token_index": 28
     },
     {
       "step": 11,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99",
       "token_index": 36
     },
     {
       "step": 12,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**:",
       "token_index": 40
     },
     {
       "step": 13,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**: 4",
       "token_index": 42
     },
     {
       "step": 14,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**: 4\n**Shipping**:",
       "token_index": 47
     },
     {
       "step": 15,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**: 4\n**Shipping**: 2-3",
       "token_index": 51
     },
     {
       "step": 16,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**: 4\n**Shipping**: 2-3 business",
       "token_index": 52
     },
     {
       "step": 17,
-      "prompt": "Extract product details from: 'iPhone 15 Pro Max, 256GB, Titanium, $1199.99. Available in 4 colors. Ships in 2-3 business days.'",
+      "prompt": "Meeting scheduled for January 20, 2024 at 2:30 PM EST. Attendees: Sarah Johnson (Manager), Mike Chen (Developer), Lisa Park (Designer). Location: Conference Room B, Duration: 90 minutes",
       "response": "**Product**: iPhone 15 Pro Max\n**Storage**: 256GB\n**Material**: Titanium\n**Price**: $1199.99\n**Colors**: 4\n**Shipping**: 2-3 business days",
       "token_index": 53
     }

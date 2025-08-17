@@ -22,37 +22,37 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The",
       "token_index": 1
     },
     {
       "step": 2,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The receipt",
       "token_index": 2
     },
     {
       "step": 3,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The receipt was",
       "token_index": 3
     },
     {
       "step": 4,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The receipt was in",
       "token_index": 4
     },
     {
       "step": 5,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The receipt was in the",
       "token_index": 5
     },
     {
       "step": 6,
-      "prompt": "Fix the spelling: 'The reciept was in the draw.'",
+      "prompt": "Their going to there house to get they're things.",
       "response": "The receipt was in the drawer.",
       "token_index": 7
     }

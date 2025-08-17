@@ -132,109 +132,109 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**:",
       "token_index": 3
     },
     {
       "step": 2,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John",
       "token_index": 4
     },
     {
       "step": 3,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith",
       "token_index": 5
     },
     {
       "step": 4,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**:",
       "token_index": 9
     },
     {
       "step": 5,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35",
       "token_index": 12
     },
     {
       "step": 6,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**:",
       "token_index": 16
     },
     {
       "step": 7,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123",
       "token_index": 20
     },
     {
       "step": 8,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main",
       "token_index": 21
     },
     {
       "step": 9,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St,",
       "token_index": 23
     },
     {
       "step": 10,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New",
       "token_index": 24
     },
     {
       "step": 11,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York,",
       "token_index": 26
     },
     {
       "step": 12,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY",
       "token_index": 27
     },
     {
       "step": 13,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001",
       "token_index": 33
     },
     {
       "step": 14,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001\n**Phone**:",
       "token_index": 37
     },
     {
       "step": 15,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001\n**Phone**: (555)",
       "token_index": 42
     },
     {
       "step": 16,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001\n**Phone**: (555) 123-4567",
       "token_index": 51
     },
     {
       "step": 17,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001\n**Phone**: (555) 123-4567\n**Email**:",
       "token_index": 55
     },
     {
       "step": 18,
-      "prompt": "Extract key information from: 'John Smith, age 35, lives at 123 Main St, New York, NY 10001. Phone: (555) 123-4567. Email: john.smith@email.com'",
+      "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
       "response": "**Name**: John Smith\n**Age**: 35\n**Address**: 123 Main St, New York, NY 10001\n**Phone**: (555) 123-4567\n**Email**: john.smith@email.com",
       "token_index": 62
     }

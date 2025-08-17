@@ -26,49 +26,49 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I",
       "token_index": 1
     },
     {
       "step": 2,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want",
       "token_index": 2
     },
     {
       "step": 3,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to",
       "token_index": 3
     },
     {
       "step": 4,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to go",
       "token_index": 4
     },
     {
       "step": 5,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to go to",
       "token_index": 5
     },
     {
       "step": 6,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to go to the",
       "token_index": 6
     },
     {
       "step": 7,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to go to the grocery",
       "token_index": 7
     },
     {
       "step": 8,
-      "prompt": "Improve clarity: 'The thing that I want to do is to go to the place where they sell food.'",
+      "prompt": "Please find attached the documents you requested. I hope this helps with you're project.",
       "response": "I want to go to the grocery store.",
       "token_index": 9
     }

@@ -112,7 +112,7 @@
   "steps": [
     {
       "step": 1,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         3,
         9,
@@ -124,7 +124,7 @@
     },
     {
       "step": 2,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         3,
         9,
@@ -141,7 +141,7 @@
     },
     {
       "step": 3,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         3,
         9,
@@ -163,7 +163,7 @@
     },
     {
       "step": 4,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         3,
         4,
@@ -190,7 +190,7 @@
     },
     {
       "step": 5,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         3,
@@ -222,7 +222,7 @@
     },
     {
       "step": 6,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         3,
@@ -259,7 +259,7 @@
     },
     {
       "step": 7,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         3,
@@ -301,7 +301,7 @@
     },
     {
       "step": 8,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         2,
@@ -348,7 +348,7 @@
     },
     {
       "step": 9,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         2,
@@ -400,7 +400,7 @@
     },
     {
       "step": 10,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         1,
@@ -457,7 +457,7 @@
     },
     {
       "step": 11,
-      "prompt": "Extract financial data from: 'Q4 2023 Revenue: $2.5B, Profit: $450M, Growth: 15.2%. Stock price: $125.50. Market cap: $85.2B.'",
+      "prompt": "Company: TechStart LLC, Founded: 2020, CEO: David Wilson, Revenue: $2.5M, Employees: 45, Address: 456 Tech Plaza, San Francisco, CA 94105",
       "filled_positions": [
         0,
         1,
