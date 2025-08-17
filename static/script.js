@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fetch streaming response from individual model
-    async function fetchStreamingResponse(prompt, mode, modelKey, container, demoMode = false) {
+    async function fetchStreamingResponse(prompt, mode, modelKey, container, demoMode = false, remask = false) {
         try {
-            const url = `/chat_stream?message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}&demo=${demoMode}`;
+            const url = `/chat_stream?message=${encodeURIComponent(prompt)}&mode=${encodeURIComponent(mode)}&model=${encodeURIComponent(modelKey)}&demo=${demoMode}&remask=${remask}`;
             const response = await fetch(url);
             
             if (!response.ok) {
@@ -401,6 +401,206 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check status every 5 seconds
     checkModelStatus();
     setInterval(checkModelStatus, 5000);
+
+    // Context Menu Functionality for Correction Tab
+    const contextMenu = document.getElementById('remaskContextMenu');
+    let selectedText = '';
+    let selectedTextContainer = null;
+
+    // Show context menu on right-click with text selection
+    document.addEventListener('contextmenu', function(e) {
+        // Only show context menu in correction tab
+        if (currentTab !== 'correction') {
+            return;
+        }
+
+        const selection = window.getSelection();
+        selectedText = selection.toString().trim();
+
+        // Only show context menu if text is selected
+        if (selectedText.length > 0) {
+            e.preventDefault();
+            
+            // Find the container of the selected text
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            selectedTextContainer = container.nodeType === Node.TEXT_NODE 
+                ? container.parentElement.closest('.chat-messages')
+                : container.closest('.chat-messages');
+
+            // Position the context menu next to the mouse cursor
+            const menuWidth = 180; // min-width from CSS
+            const menuHeight = 80; // approximate height
+            const padding = 10; // padding from cursor
+            
+            // Calculate position to keep menu within viewport
+            let left = e.pageX + padding;
+            let top = e.pageY + padding;
+            
+            // Adjust if menu would go off the right edge
+            if (left + menuWidth > window.innerWidth) {
+                left = e.pageX - menuWidth - padding;
+            }
+            
+            // Adjust if menu would go off the bottom edge
+            if (top + menuHeight > window.innerHeight) {
+                top = e.pageY - menuHeight - padding;
+            }
+            
+            // Ensure menu doesn't go off the left or top edges
+            left = Math.max(padding, left);
+            top = Math.max(padding, top);
+            
+            contextMenu.style.left = left + 'px';
+            contextMenu.style.top = top + 'px';
+            contextMenu.classList.add('show');
+        }
+    });
+
+    // Hide context menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!contextMenu.contains(e.target)) {
+            contextMenu.classList.remove('show');
+        }
+    });
+
+    // Hide context menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            contextMenu.classList.remove('show');
+        }
+    });
+
+    // Remask button functionality
+    document.getElementById('remaskButton').addEventListener('click', function() {
+        if (selectedText && selectedTextContainer) {
+            handleRemaskSelection(selectedText, selectedTextContainer);
+        }
+        contextMenu.classList.remove('show');
+    });
+
+    // Copy button functionality
+    document.getElementById('copyButton').addEventListener('click', function() {
+        if (selectedText) {
+            navigator.clipboard.writeText(selectedText).then(function() {
+                // Show a brief success message
+                showCopySuccess();
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+        contextMenu.classList.remove('show');
+    });
+
+    // Handle remask for selected text
+    async function handleRemaskSelection(selectedText, container) {
+        console.log('Remasking selected text:', selectedText);
+        
+        // Find the user message that preceded this bot response
+        const messages = container.querySelectorAll('.message');
+        let userMessage = null;
+        
+        // Look for the most recent user message before this bot response
+        for (let i = messages.length - 1; i >= 0; i--) {
+            if (messages[i].classList.contains('user-message')) {
+                userMessage = messages[i];
+                break;
+            }
+        }
+        
+        if (!userMessage) {
+            console.error('No user message found for remask');
+            return;
+        }
+        
+        // Get the user's original prompt
+        const userPrompt = userMessage.querySelector('.message-text').textContent;
+        
+        // Find which suggestion this corresponds to
+        let suggestionKey = null;
+        for (const [key, value] of Object.entries(promptDisplayMap)) {
+            if (value === userPrompt) {
+                suggestionKey = key;
+                break;
+            }
+        }
+        
+        if (!suggestionKey) {
+            console.error('Could not find suggestion key for prompt:', userPrompt);
+            return;
+        }
+        
+        // Remove the current bot response
+        const botMessages = container.querySelectorAll('.bot-message');
+        if (botMessages.length > 0) {
+            botMessages[botMessages.length - 1].remove();
+        }
+        
+        // Add loading indicator
+        const loadingId = addLoadingMessage(container);
+        
+        try {
+            // Check if demo mode is enabled
+            const demoMode = document.getElementById('demoModeToggle').checked;
+            
+            // Regenerate response with remask
+            const result = await fetchStreamingResponse(suggestionKey, 'correction', 
+                container.id.includes('Smollm2') ? 'smollm2' : 'smollm', 
+                container, demoMode, true); // true = remask flag
+            
+            // Remove loading message
+            removeLoadingMessage(container, loadingId);
+            
+            if (result && result.success) {
+                console.log('Remask completed successfully');
+            }
+        } catch (error) {
+            console.error('Error during remask:', error);
+            removeLoadingMessage(container, loadingId);
+        }
+    }
+
+    // Show copy success message
+    function showCopySuccess() {
+        const successMessage = document.createElement('div');
+        successMessage.textContent = '✅ Copied to clipboard!';
+        successMessage.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(successMessage);
+        
+        setTimeout(() => {
+            successMessage.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                document.body.removeChild(successMessage);
+            }, 300);
+        }, 2000);
+    }
+
+    // Add CSS animations for copy success message
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 
     // Refresh button functionality
     const refreshButton = document.getElementById('refreshButton');

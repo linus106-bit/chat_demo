@@ -773,3 +773,105 @@ input:checked + .demo-slider:before {
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 #f1f5f9;
 }
+
+/* Context Menu Styles */
+.context-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.context-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.context-menu-item:hover {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    color: #1f2937;
+}
+
+.context-menu-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.context-menu-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.context-menu-icon {
+    margin-right: 12px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.context-menu-text {
+    flex: 1;
+}
+
+/* Special styling for remask button */
+#remaskButton {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+#remaskButton:hover {
+    background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+    color: #6d28d9;
+}
+
+#remaskButton .context-menu-icon {
+    color: #8b5cf6;
+}
+
+/* Copy button styling */
+#copyButton {
+    color: #059669;
+}
+
+#copyButton:hover {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    color: #047857;
+}
+
+#copyButton .context-menu-icon {
+    color: #10b981;
+}
+
+/* Text selection styling for correction tab */
+.correction-tab .message-text {
+    user-select: text;
+    cursor: text;
+}
+
+.correction-tab .message-text::selection {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+.correction-tab .message-text::-moz-selection {
+    background: rgba(139, 92, 246, 0.2);
+}
