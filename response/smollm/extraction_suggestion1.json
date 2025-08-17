@@ -1,3 +1,4 @@
+[
 {
   "prompt": "John Doe, 123 Main Street, New York, NY 10001, Phone: (555) 123-4567, Email: john.doe@email.com, DOB: 01/15/1985",
   "full_input_ids": [
@@ -979,3 +980,4 @@
   },
   "generation_type": "shuffled"
 }
+]

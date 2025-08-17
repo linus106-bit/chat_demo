@@ -1,4 +1,5 @@
-{
+[
+  {
   "prompt": "Explain quantum computing in simple terms",
   "full_input_ids": [
     48021,
@@ -177,3 +178,4 @@
     }
   }
 }
+]

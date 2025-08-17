@@ -469,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the previous assistant responses (or use default if none exist)
             let previousResponseSmollm2, previousResponseSmollm;
+            let shuffledOrder = null;
             
             if (allAssistantMessagesSmollm2.length > 0) {
                 const lastAssistantDiv = allAssistantMessagesSmollm2[allAssistantMessagesSmollm2.length - 1];
@@ -488,6 +489,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 previousResponseSmollm = "I don't see any previous response to correct. Please try one of the example corrections first.";
             }
             
+            // Determine which correction suggestion was used and load the corresponding JSON
+            const determineCorrectionSuggestion = () => {
+                // Get the first user message to determine which suggestion was used
+                const firstUserMessage = smollm2Messages.querySelector('.user-message .message-text');
+                if (!firstUserMessage) return null;
+                
+                const userText = firstUserMessage.textContent || firstUserMessage.innerText;
+                console.log('First user message:', userText);
+                
+                // Map user text to suggestion number
+                const suggestionMap = {
+                    'I cant beleive its already december and i havent finished my homwork yet.': 1,
+                    'Their going to there house to get they\'re things.': 2,
+                    'The meeting will be held on Monday, Wenesday, and friday at 3pm.': 3,
+                    'Please find attached the documents you requested. I hope this helps with you\'re project.': 4
+                };
+                
+                return suggestionMap[userText] || null;
+            };
+            
+            const suggestionNumber = determineCorrectionSuggestion();
+            console.log('Determined suggestion number:', suggestionNumber);
+            
+            // Count how many assistant messages we have to determine which turn we're on
+            const assistantMessageCount = allAssistantMessagesSmollm.length;
+            const currentTurn = assistantMessageCount; // 0-based, so first turn is 0, second turn is 1, etc.
+            console.log('Current turn:', currentTurn);
+            
             console.log('Previous responses:', { previousResponseSmollm2, previousResponseSmollm });
             
             // Disable the remask button during processing
@@ -499,10 +528,199 @@ document.addEventListener('DOMContentLoaded', function() {
                 addMessage("Correct the upper answer", 'user', smollm2Messages);
                 addMessage("Correct the upper answer", 'user', smollmMessages);
                 
-                console.log('Adding assistant responses...');
-                // Add assistant responses that repeat the previous answers
-                addMessage(previousResponseSmollm2, 'assistant', smollm2Messages);
-                addMessage(previousResponseSmollm, 'assistant', smollmMessages);
+                console.log('Adding assistant responses with streaming...');
+                
+                // Check if demo mode is enabled
+                const demoMode = document.getElementById('demoModeToggle').checked;
+                
+                if (demoMode && suggestionNumber !== null && currentTurn >= 0) {
+                    // Use the new remask endpoint for demo mode
+                    console.log('Using remask endpoint for turn:', currentTurn);
+                    
+                    // Create streaming messages for both models
+                    const smollm2MessageId = addStreamingMessage(smollm2Messages);
+                    const smollmMessageId = addStreamingMessage(smollmMessages);
+                    
+                    // Get the message elements
+                    const smollm2MessageElement = document.getElementById(smollm2MessageId);
+                    const smollmMessageElement = document.getElementById(smollmMessageId);
+                    const smollm2TextElement = smollm2MessageElement.querySelector('.message-text');
+                    const smollmTextElement = smollmMessageElement.querySelector('.message-text');
+                    
+                    // For SmolLM2, we'll use the previous response with normal streaming
+                    const streamText = async (text, textElement, delay = 50) => {
+                        const words = text.split(' ');
+                        for (let i = 0; i < words.length; i++) {
+                            textElement.textContent = words.slice(0, i + 1).join(' ');
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                        }
+                    };
+                    
+                    // For SmolLM, use the remask endpoint to get the next turn
+                    const fetchRemaskResponse = async (suggestion, turn, model, container) => {
+                        try {
+                            const url = `/remask_stream?suggestion=correction_suggestion${suggestion}&turn=${turn}&mode=correction&model=${model}`;
+                            console.log('Fetching remask URL:', url);
+                            const response = await fetch(url);
+                            
+                            if (!response.ok) {
+                                console.error('Remask response not ok:', response.status, response.statusText);
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            
+                            const reader = response.body.getReader();
+                            const decoder = new TextDecoder();
+                            let buffer = '';
+                            
+                            while (true) {
+                                const { done, value } = await reader.read();
+                                
+                                if (done) break;
+                                
+                                buffer += decoder.decode(value, { stream: true });
+                                const lines = buffer.split('\n');
+                                buffer = lines.pop(); // Keep incomplete line in buffer
+                                
+                                for (const line of lines) {
+                                    if (line.startsWith('data: ')) {
+                                        try {
+                                            const data = JSON.parse(line.slice(6));
+                                            
+                                            if (data.error) {
+                                                console.error('Remask error:', data.error);
+                                                smollmTextElement.textContent = `Error: ${data.error}`;
+                                                return;
+                                            }
+                                            
+                                            if (data.done) {
+                                                return;
+                                            }
+                                            
+                                            if (data.token) {
+                                                if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
+                                                    const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
+                                                    smollmTextElement.classList.add('shuffled-text');
+                                                    smollmTextElement.textContent = shuffledText;
+                                                } else {
+                                                    smollmTextElement.classList.remove('shuffled-text');
+                                                    smollmTextElement.textContent += data.token;
+                                                }
+                                            }
+                                        } catch (e) {
+                                            console.error('Error parsing remask data:', e);
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Error in remask streaming:', error);
+                        }
+                    };
+                    
+                    // Stream both responses
+                    const streamPromise1 = streamText(previousResponseSmollm2, smollm2TextElement);
+                    const streamPromise2 = fetchRemaskResponse(suggestionNumber, currentTurn, 'smollm', smollmMessages);
+                    
+                    // Wait for both streams to complete
+                    await Promise.all([streamPromise1, streamPromise2]);
+                    
+                } else {
+                    // Fallback to previous behavior for non-demo mode or when JSON not available
+                    const streamText = async (text, textElement, delay = 50) => {
+                        const words = text.split(' ');
+                        for (let i = 0; i < words.length; i++) {
+                            textElement.textContent = words.slice(0, i + 1).join(' ');
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                        }
+                    };
+                    
+                    // Create streaming messages for both models
+                    const smollm2MessageId = addStreamingMessage(smollm2Messages);
+                    const smollmMessageId = addStreamingMessage(smollmMessages);
+                    
+                    // Get the message elements
+                    const smollm2MessageElement = document.getElementById(smollm2MessageId);
+                    const smollmMessageElement = document.getElementById(smollmMessageId);
+                    const smollm2TextElement = smollm2MessageElement.querySelector('.message-text');
+                    const smollmTextElement = smollmMessageElement.querySelector('.message-text');
+                    
+                    // For SmolLM2, use the previous response
+                    const streamPromise1 = streamText(previousResponseSmollm2, smollm2TextElement);
+                    
+                    // For SmolLM, try to use the remask endpoint if we have a suggestion number
+                    let streamPromise2;
+                    if (suggestionNumber !== null && currentTurn >= 0) {
+                        // Try to use the remask endpoint even in non-demo mode
+                        const fetchRemaskResponse = async (suggestion, turn, model, container) => {
+                            try {
+                                const url = `/remask_stream?suggestion=correction_suggestion${suggestion}&turn=${turn}&mode=correction&model=${model}`;
+                                const response = await fetch(url);
+                                
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                
+                                const reader = response.body.getReader();
+                                const decoder = new TextDecoder();
+                                let buffer = '';
+                                
+                                while (true) {
+                                    const { done, value } = await reader.read();
+                                    
+                                    if (done) break;
+                                    
+                                    buffer += decoder.decode(value, { stream: true });
+                                    const lines = buffer.split('\n');
+                                    buffer = lines.pop(); // Keep incomplete line in buffer
+                                    
+                                    for (const line of lines) {
+                                        if (line.startsWith('data: ')) {
+                                            try {
+                                                const data = JSON.parse(line.slice(6));
+                                                
+                                                if (data.error) {
+                                                    console.error('Remask error:', data.error);
+                                                    // Fallback to previous response
+                                                    smollmTextElement.textContent = previousResponseSmollm;
+                                                    return;
+                                                }
+                                                
+                                                if (data.done) {
+                                                    return;
+                                                }
+                                                
+                                                if (data.token) {
+                                                    if (data.token.startsWith('__SHUFFLED_UPDATE__')) {
+                                                        const shuffledText = data.token.substring('__SHUFFLED_UPDATE__'.length);
+                                                        textElement.classList.add('shuffled-text');
+                                                        textElement.textContent = shuffledText;
+                                                    } else {
+                                                        textElement.classList.remove('shuffled-text');
+                                                        textElement.textContent += data.token;
+                                                    }
+                                                }
+                                            } catch (e) {
+                                                console.error('Error parsing remask data:', e);
+                                            }
+                                        }
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Error in remask streaming:', error);
+                                // Fallback to previous response
+                                smollmTextElement.textContent = previousResponseSmollm;
+                            }
+                        };
+                        
+                        streamPromise2 = fetchRemaskResponse(suggestionNumber, currentTurn, 'smollm', smollmMessages);
+                    } else {
+                        // Fallback to previous response if no suggestion number
+                        streamPromise2 = streamText(previousResponseSmollm, smollmTextElement);
+                    }
+                    
+                    // Wait for both streams to complete
+                    await Promise.all([streamPromise1, streamPromise2]);
+                }
                 
                 console.log('Remask completed successfully!');
                 

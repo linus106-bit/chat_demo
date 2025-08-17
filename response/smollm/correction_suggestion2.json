@@ -1,109 +1,220 @@
-{
-  "prompt": "Their going to there house to get they're things.",
-  "full_input_ids": [
-    504,
-    30691,
-    436,
-    281,
-    260,
-    46520,
-    30
-  ],
-  "full_tokens": [
-    "The",
-    "\u0120receipt",
-    "\u0120was",
-    "\u0120in",
-    "\u0120the",
-    "\u0120drawer",
-    "."
-  ],
-  "total_tokens": 7,
-  "steps": [
-    {
-      "step": 1,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        2
-      ],
-      "total_positions": 7
+[
+  {
+    "prompt": "Their going to there house to get they're things.",
+    "full_input_ids": [
+      504,
+      30691,
+      436,
+      281,
+      260,
+      46520,
+      30
+    ],
+    "full_tokens": [
+      "The",
+      "\u0120receipt",
+      "\u0120was",
+      "\u0120in",
+      "\u0120the",
+      "\u0120drawer",
+      "."
+    ],
+    "total_tokens": 7,
+    "steps": [
+      {
+        "step": 1,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 2,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2,
+          4
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 3,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 4,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 5,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 6,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 7,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "total_positions": 7
+      }
+    ],
+    "model_info": {
+      "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "tokenizer_info": {
+        "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+        "vocab_size": 49152
+      }
     },
-    {
-      "step": 2,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        2,
-        4
-      ],
-      "total_positions": 7
-    },
-    {
-      "step": 3,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        2,
-        4,
-        5
-      ],
-      "total_positions": 7
-    },
-    {
-      "step": 4,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        0,
-        2,
-        4,
-        5
-      ],
-      "total_positions": 7
-    },
-    {
-      "step": 5,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        0,
-        1,
-        2,
-        4,
-        5
-      ],
-      "total_positions": 7
-    },
-    {
-      "step": 6,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "total_positions": 7
-    },
-    {
-      "step": 7,
-      "prompt": "Their going to there house to get they're things.",
-      "filled_positions": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "total_positions": 7
-    }
-  ],
-  "model_info": {
-    "model": "HuggingFaceTB/SmolLM-135M-Instruct",
-    "tokenizer_info": {
-      "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
-      "vocab_size": 49152
-    }
+    "generation_type": "shuffled"
   },
-  "generation_type": "shuffled"
-}
+  {
+    "prompt": "Their going to there house to get they're things.",
+    "full_input_ids": [
+      504,
+      30691,
+      436,
+      281,
+      260,
+      46520,
+      30
+    ],
+    "full_tokens": [
+      "The",
+      "\u0120receipt",
+      "\u0120was",
+      "\u0120in",
+      "\u0120the",
+      "\u0120drawer",
+      "."
+    ],
+    "total_tokens": 7,
+    "steps": [
+      {
+        "step": 1,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 2,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2,
+          4
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 3,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 4,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 5,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 6,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "total_positions": 7
+      },
+      {
+        "step": 7,
+        "prompt": "Their going to there house to get they're things.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "total_positions": 7
+      }
+    ],
+    "model_info": {
+      "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "tokenizer_info": {
+        "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+        "vocab_size": 49152
+      }
+    },
+    "generation_type": "shuffled"
+  }
+]

@@ -1,4 +1,5 @@
-{
+[
+  {
   "prompt": "Write a Python function to calculate fibonacci numbers",
   "full_input_ids": [
     4590,
@@ -285,3 +286,4 @@
     }
   }
 }
+]

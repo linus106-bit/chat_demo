@@ -1,144 +1,290 @@
-{
-  "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-  "full_input_ids": [
-    18,
-    1780,
-    655,
-    314,
-    357,
-    4817,
-    1041,
-    3413,
-    30
-  ],
-  "full_tokens": [
-    "\"",
-    "What",
-    "\u0120time",
-    "\u0120is",
-    "\u0120it",
-    "?\"",
-    "\u0120she",
-    "\u0120asked",
-    "."
-  ],
-  "total_tokens": 9,
-  "steps": [
-    {
-      "step": 1,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        7
-      ],
-      "total_positions": 9
+[
+  {
+    "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+    "full_input_ids": [
+      18,
+      1780,
+      655,
+      314,
+      357,
+      4817,
+      1041,
+      3413,
+      30
+    ],
+    "full_tokens": [
+      "\"",
+      "What",
+      "\u0120time",
+      "\u0120is",
+      "\u0120it",
+      "?\"",
+      "\u0120she",
+      "\u0120asked",
+      "."
+    ],
+    "total_tokens": 9,
+    "steps": [
+      {
+        "step": 1,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 2,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          1,
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 3,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 4,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 5,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 6,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          4,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 7,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 8,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 9,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      }
+    ],
+    "model_info": {
+      "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "tokenizer_info": {
+        "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+        "vocab_size": 49152
+      }
     },
-    {
-      "step": 2,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        1,
-        7
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 3,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        7
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 4,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        7,
-        8
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 5,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        6,
-        7,
-        8
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 6,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        4,
-        6,
-        7,
-        8
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 7,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        4,
-        5,
-        6,
-        7,
-        8
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 8,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8
-      ],
-      "total_positions": 9
-    },
-    {
-      "step": 9,
-      "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
-      "filled_positions": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-      ],
-      "total_positions": 9
-    }
-  ],
-  "model_info": {
-    "model": "HuggingFaceTB/SmolLM-135M-Instruct",
-    "tokenizer_info": {
-      "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
-      "vocab_size": 49152
-    }
+    "generation_type": "shuffled"
   },
-  "generation_type": "shuffled"
-}
+  {
+    "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+    "full_input_ids": [
+      18,
+      1780,
+      655,
+      314,
+      357,
+      4817,
+      1041,
+      3413,
+      30
+    ],
+    "full_tokens": [
+      "\"",
+      "What",
+      "\u0120time",
+      "\u0120is",
+      "\u0120it",
+      "?\"",
+      "\u0120she",
+      "\u0120asked",
+      "."
+    ],
+    "total_tokens": 9,
+    "steps": [
+      {
+        "step": 1,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 2,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          1,
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 3,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          7
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 4,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 5,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 6,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          4,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 7,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 8,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      },
+      {
+        "step": 9,
+        "prompt": "The meeting will be held on Monday, Wenesday, and friday at 3pm.",
+        "filled_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "total_positions": 9
+      }
+    ],
+    "model_info": {
+      "model": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "tokenizer_info": {
+        "model_name": "HuggingFaceTB/SmolLM-135M-Instruct",
+        "vocab_size": 49152
+      }
+    },
+    "generation_type": "shuffled"
+  }
+]

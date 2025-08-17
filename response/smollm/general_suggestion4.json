@@ -1,3 +1,4 @@
+[
 {
   "prompt": "How do I start learning machine learning?",
   "full_input_ids": [
@@ -1147,3 +1148,4 @@
   },
   "generation_type": "shuffled"
 }
+]

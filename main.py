@@ -280,6 +280,7 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
     
     # Try to find JSON file for this suggestion
     filename = f"{prompt}.json"
+    print(f"DEBUG: Looking for file: {filename}")
     if not filename:
         # Fallback response if prompt doesn't match
         fallback_text = f"Demo response for {model_key}: {prompt[:50]}..."
@@ -297,16 +298,88 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
         # Get the tokenizer for this model
         model_info = model_manager.get_loaded_model(model_key)
         tokenizer = model_info.get("tokenizer")
+        print(f"DEBUG: Model info for {model_key}: {model_info}")
+        print(f"DEBUG: Tokenizer available: {tokenizer is not None}")
         
-        # Check if this is the new JSON format
-        if isinstance(steps, dict) and "full_input_ids" in steps and "steps" in steps:
-            # New format with full_input_ids and token indices
+        # Check if this is the new JSON format (array of turns)
+        if isinstance(steps, list) and len(steps) > 0:
+            # New multiturn format - array of conversation turns
+            # Use the first turn (index 0) for initial generation
+            turn_data = steps[0]  # Use first turn for initial generation
+            print(f"DEBUG: Using multiturn format, first turn from {filepath}")
+            
+            if isinstance(turn_data, dict) and "full_input_ids" in turn_data and "steps" in turn_data:
+                full_input_ids = turn_data["full_input_ids"]
+                full_tokens = turn_data["full_tokens"]
+                step_list = turn_data["steps"]
+                generation_type = turn_data.get("generation_type", "sequential")
+                print(f"DEBUG: Turn data loaded - {len(full_input_ids)} tokens, {len(step_list)} steps, type: {generation_type}")
+                
+                # Handle generation for new format
+                if not tokenizer:
+                    print(f"DEBUG: No tokenizer available, using fallback")
+                    fallback_text = f"Demo response for {model_key}: {prompt[:50]}..."
+                    for word in fallback_text.split():
+                        yield word + " "
+                        time.sleep(0.1)
+                    return
+                
+                if generation_type == "shuffled":
+                    print(f"DEBUG: Starting shuffled generation with {len(step_list)} steps")
+                    # Shuffled generation
+                    for step in step_list:
+                        filled_positions = step["filled_positions"]
+                        total_positions = len(full_input_ids)
+                        
+                        response_parts = []
+                        for pos in range(total_positions):
+                            token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
+                            
+                            if pos in filled_positions:
+                                response_parts.append(token_text)
+                            else:
+                                blank_space = " " * len(token_text)
+                                response_parts.append(blank_space)
+                        
+                        current_response = "".join(response_parts)
+                        print(f"DEBUG: Generated shuffled response: '{current_response}'")
+                        yield f"__SHUFFLED_UPDATE__{current_response}"
+                        time.sleep(0.03)
+                else:
+                    print(f"DEBUG: Starting sequential generation with {len(step_list)} steps")
+                    # Sequential generation
+                    last_token_index = 0
+                    for step in step_list:
+                        current_token_index = step["token_index"]
+                        
+                        if current_token_index > last_token_index:
+                            new_token_ids = full_input_ids[last_token_index:current_token_index]
+                            
+                            for token_id in new_token_ids:
+                                token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                                if token_text:
+                                    yield token_text
+                                    time.sleep(0.03)
+                        
+                        last_token_index = current_token_index
+                return  # Exit after processing first turn
+            else:
+                # Fallback to old format
+                full_input_ids = steps["full_input_ids"]
+                full_tokens = steps["full_tokens"]
+                step_list = steps["steps"]
+                generation_type = steps.get("generation_type", "sequential")
+                print(f"DEBUG: Fallback to old format from {filepath}")
+        
+        elif isinstance(steps, dict) and "full_input_ids" in steps and "steps" in steps:
+            # Old format with single object
             full_input_ids = steps["full_input_ids"]
             full_tokens = steps["full_tokens"]
             step_list = steps["steps"]
             generation_type = steps.get("generation_type", "sequential")
-            
-            if not tokenizer:
+        
+        # Handle generation based on type (for both new and old formats)
+        if not tokenizer:
                 # Fallback to text-based streaming if no tokenizer available
                 last_response = ""
                 for step in step_list:
@@ -319,86 +392,53 @@ def generate_demo_streaming_response(prompt: str, mode: str, model_key: str):
                     last_response = response
                 return
             
-            if generation_type == "shuffled":
-                # Shuffled (diffusion-style) generation - build response from input_ids and positions
-                for step in step_list:
-                    filled_positions = step["filled_positions"]
-                    total_positions = len(full_input_ids)
+        if generation_type == "shuffled":
+            # Shuffled (diffusion-style) generation - build response from input_ids and positions
+            print(f"DEBUG: Starting shuffled generation with {len(step_list)} steps")
+            for step in step_list:
+                filled_positions = step["filled_positions"]
+                total_positions = len(full_input_ids)
+                
+                # Build response text using only filled positions
+                response_parts = []
+                for pos in range(total_positions):
+                    # Always decode the token to get its exact length
+                    token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
                     
-                    # Build response text using only filled positions
-                    response_parts = []
-                    for pos in range(total_positions):
-                        # Always decode the token to get its exact length
-                        token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
-                        
-                        if pos in filled_positions:
-                            # Position is filled - use the actual decoded token
-                            response_parts.append(token_text)
-                        else:
-                            # Position is unfilled - use blank spaces with exact token length
-                            blank_space = " " * len(token_text)
-                            response_parts.append(blank_space)
-                    
-                    # Join all parts to create the complete response
-                    current_response = "".join(response_parts)
-                    
-                    # Send the complete response as a single update
-                    yield f"__SHUFFLED_UPDATE__{current_response}"
-                    time.sleep(0.03)  # Same speed as sequential generation
-            else:
-                # Sequential generation - stream using token indices
-                last_token_index = 0
-                for step in step_list:
-                    current_token_index = step["token_index"]
-                    
-                    # Calculate new tokens to add (from last_token_index to current_token_index)
-                    if current_token_index > last_token_index:
-                        new_token_ids = full_input_ids[last_token_index:current_token_index]
-                        
-                        # Convert new token IDs to text
-                        for token_id in new_token_ids:
-                            token_text = tokenizer.decode([token_id], skip_special_tokens=True)
-                            if token_text:
-                                yield token_text
-                                time.sleep(0.03)  # Slightly faster for token-by-token
-                    
-                    last_token_index = current_token_index
-        
+                    if pos in filled_positions:
+                        # Position is filled - use the actual decoded token
+                        response_parts.append(token_text)
+                    else:
+                        # Position is unfilled - use blank spaces with exact token length
+                        blank_space = " " * len(token_text)
+                        response_parts.append(blank_space)
+                
+                # Join all parts to create the complete response
+                current_response = "".join(response_parts)
+                print(f"DEBUG: Generated shuffled response: '{current_response}'")
+                
+                # Send the complete response as a single update
+                yield f"__SHUFFLED_UPDATE__{current_response}"
+                time.sleep(0.03)  # Same speed as sequential generation
         else:
-            # Legacy format - fallback for old JSON structure
-            if not tokenizer:
-                # Fallback to text-based streaming if no tokenizer available
-                last_response = ""
-                for step in steps:
-                    if isinstance(step, dict) and "response" in step:
-                        response = step["response"]
-                        if len(response) > len(last_response):
-                            new_part = response[len(last_response):]
-                            if new_part:
-                                yield new_part
-                                time.sleep(0.05)
-                        last_response = response
-                return
-            
-            # Stream using input_ids - each step represents new tokens to add (legacy)
-            last_input_ids = []
-            for step in steps:
-                if isinstance(step, dict) and "tokenization" in step:
-                    current_input_ids = step["tokenization"]["input_ids"]
+            # Sequential generation - stream using token indices
+            last_token_index = 0
+            for step in step_list:
+                current_token_index = step["token_index"]
+                
+                # Calculate new tokens to add (from last_token_index to current_token_index)
+                if current_token_index > last_token_index:
+                    new_token_ids = full_input_ids[last_token_index:current_token_index]
                     
-                    # Calculate new tokens to add (difference from previous step)
-                    if len(current_input_ids) > len(last_input_ids):
-                        new_token_ids = current_input_ids[len(last_input_ids):]
-                        
-                        # Convert new token IDs to text
-                        for token_id in new_token_ids:
-                            token_text = tokenizer.decode([token_id], skip_special_tokens=True)
-                            if token_text:
-                                yield token_text
-                                time.sleep(0.03)  # Slightly faster for token-by-token
-                    
-                    last_input_ids = current_input_ids
-            
+                    # Convert new token IDs to text
+                    for token_id in new_token_ids:
+                        token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                        if token_text:
+                            yield token_text
+                            time.sleep(0.03)  # Slightly faster for token-by-token
+                
+                last_token_index = current_token_index
+        
     except Exception as e:
         yield f"Demo error: {str(e)}"
 
@@ -444,6 +484,111 @@ async def chat_stream(message: str, mode: str = "general", model: str = "smollm2
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
             "X-Accel-Buffering": "no"  # Disable nginx buffering
+        }
+    )
+
+@app.get("/remask_stream")
+async def remask_stream(suggestion: str, turn: int = 1, mode: str = "correction", model: str = "smollm"):
+    """Stream remask response for a specific turn from JSON files"""
+    def stream_generator():
+        try:
+            # Get model configuration
+            model_config = model_manager.get_model_config(model)
+            if not model_config:
+                yield f"data: {json.dumps({'error': 'Model not found', 'done': True})}\n\n"
+                return
+            
+            # Get demo folder from model config
+            demo_folder = model_config.get("demo_folder", model)
+            
+            # Load the JSON file
+            filepath = f"response/{demo_folder}/{suggestion}.json"
+            print(f"Loading remask file: {filepath}")
+            with open(filepath, 'r') as f:
+                turns_data = json.load(f)
+            print(f"Loaded turns data: {len(turns_data) if isinstance(turns_data, list) else 'not a list'}")
+            
+            # Check if the requested turn exists
+            print(f"Requested turn: {turn}, Available turns: {len(turns_data) if isinstance(turns_data, list) else 'not a list'}")
+            if not isinstance(turns_data, list) or turn >= len(turns_data):
+                error_msg = f'Turn {turn} not available'
+                print(f"Error: {error_msg}")
+                yield f"data: {json.dumps({'error': error_msg, 'done': True})}\n\n"
+                return
+            
+            # Get the specific turn data
+            turn_data = turns_data[turn]
+            
+            # Get the tokenizer for this model
+            model_info = model_manager.get_loaded_model(model)
+            tokenizer = model_info.get("tokenizer")
+            
+            print(f"Model info: {model_info}")
+            print(f"Tokenizer available: {tokenizer is not None}")
+            
+            if not tokenizer:
+                error_msg = 'Tokenizer not available'
+                print(f"Error: {error_msg}")
+                yield f"data: {json.dumps({'error': error_msg, 'done': True})}\n\n"
+                return
+            
+            # Generate streaming response for this specific turn
+            full_input_ids = turn_data["full_input_ids"]
+            full_tokens = turn_data["full_tokens"]
+            step_list = turn_data["steps"]
+            generation_type = turn_data.get("generation_type", "sequential")
+            
+            import time
+            
+            if generation_type == "shuffled":
+                # Shuffled generation for this turn
+                for step in step_list:
+                    filled_positions = step["filled_positions"]
+                    total_positions = len(full_input_ids)
+                    
+                    # Build response text using only filled positions
+                    response_parts = []
+                    for pos in range(total_positions):
+                        token_text = tokenizer.decode([full_input_ids[pos]], skip_special_tokens=True)
+                        
+                        if pos in filled_positions:
+                            response_parts.append(token_text)
+                        else:
+                            blank_space = " " * len(token_text)
+                            response_parts.append(blank_space)
+                    
+                    current_response = "".join(response_parts)
+                    yield f"data: {json.dumps({'token': f'__SHUFFLED_UPDATE__{current_response}', 'done': False})}\n\n"
+                    time.sleep(0.03)
+            else:
+                # Sequential generation for this turn
+                last_token_index = 0
+                for step in step_list:
+                    current_token_index = step["token_index"]
+                    
+                    if current_token_index > last_token_index:
+                        new_token_ids = full_input_ids[last_token_index:current_token_index]
+                        
+                        for token_id in new_token_ids:
+                            token_text = tokenizer.decode([token_id], skip_special_tokens=True)
+                            if token_text:
+                                yield f"data: {json.dumps({'token': token_text, 'done': False})}\n\n"
+                                time.sleep(0.03)
+                    
+                    last_token_index = current_token_index
+            
+            yield f"data: {json.dumps({'token': '', 'done': True})}\n\n"
+            
+        except Exception as e:
+            yield f"data: {json.dumps({'error': str(e), 'done': True})}\n\n"
+    
+    return StreamingResponse(
+        stream_generator(),
+        media_type="text/plain",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"
         }
     )
 
