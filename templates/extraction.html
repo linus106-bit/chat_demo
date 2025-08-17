@@ -1,0 +1,47 @@
+<!-- Chat Grid -->
+<div class="chat-grid">
+    <!-- SmolLM2 Chat -->
+    <div class="chat-panel">
+        <div class="panel-header">
+            <div class="model-title">
+                <div class="model-avatar">🚀</div>
+                <h3>SmolLM2-135M-Instruct</h3>
+            </div>
+            <div class="model-status" id="extractionSmollm2Status">Loading...</div>
+        </div>
+        <div class="chat-messages" id="extractionSmollm2Messages">
+        </div>
+    </div>
+
+    <!-- SmolLM Chat -->
+    <div class="chat-panel">
+        <div class="panel-header">
+            <div class="model-title">
+                <div class="model-avatar">⚡</div>
+                <h3>SmolLM-135M-Instruct</h3>
+            </div>
+            <div class="model-status" id="extractionSmollmStatus">Loading...</div>
+        </div>
+        <div class="chat-messages" id="extractionSmollmMessages">
+        </div>
+    </div>
+</div>
+
+<!-- Suggestions Area -->
+<div class="suggestions-container">
+    <h3 class="suggestions-title">🔍 Try these extraction examples:</h3>
+    <div class="suggestions-grid">
+        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion1">
+            👤 Personal Info: Extract from contact details
+        </button>
+        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion2">
+            🧾 Invoice: Extract financial data
+        </button>
+        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion3">
+            📅 Meeting: Extract schedule information
+        </button>
+        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion4">
+            🏢 Business: Extract company data
+        </button>
+    </div>
+</div>

@@ -54,155 +54,17 @@
 
             <!-- Tab Content -->
             <div class="tab-content active" id="generalTab">
-                <!-- Chat Grid -->
-                <div class="chat-grid">
-                    <!-- SmolLM2 Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">🚀</div>
-                                <h3>SmolLM2-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="generalSmollm2Status">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="generalSmollm2Messages">
-                        </div>
-                    </div>
-
-                    <!-- SmolLM Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">⚡</div>
-                                <h3>SmolLM-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="generalSmollmStatus">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="generalSmollmMessages">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Suggestions Area -->
-                <div class="suggestions-container">
-                    <h3 class="suggestions-title">💬 Try these general questions:</h3>
-                    <div class="suggestions-grid">
-                        <button class="suggestion-button" data-mode="general" data-prompt="general_suggestion1">
-                            🔬 Explain quantum computing in simple terms
-                        </button>
-                        <button class="suggestion-button" data-mode="general" data-prompt="general_suggestion2">
-                            🐍 Write a Python function to calculate fibonacci numbers
-                        </button>
-                        <button class="suggestion-button" data-mode="general" data-prompt="general_suggestion3">
-                            🌱 What are the benefits of renewable energy?
-                        </button>
-                        <button class="suggestion-button" data-mode="general" data-prompt="general_suggestion4">
-                            🤖 How do I start learning machine learning?
-                        </button>
-                    </div>
-                </div>
+                {% include 'general.html' %}
             </div>
 
             <!-- Correction Tab -->
             <div class="tab-content" id="correctionTab">
-                <!-- Chat Grid -->
-                <div class="chat-grid">
-                    <!-- SmolLM2 Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">🚀</div>
-                                <h3>SmolLM2-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="correctionSmollm2Status">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="correctionSmollm2Messages">
-                        </div>
-                    </div>
-
-                    <!-- SmolLM Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">⚡</div>
-                                <h3>SmolLM-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="correctionSmollmStatus">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="correctionSmollmMessages">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Suggestions Area -->
-                <div class="suggestions-container">
-                    <h3 class="suggestions-title">✏️ Try these text correction examples:</h3>
-                    <div class="suggestions-grid">
-                        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion1">
-                            🔍 Fix: "I cant beleive its already december and i havent finished my homwork yet."
-                        </button>
-                        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion2">
-                            📚 Correct: "Their going to there house to get they're things."
-                        </button>
-                        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion3">
-                            📅 Fix: "The meeting will be held on Monday, Wenesday, and friday at 3pm."
-                        </button>
-                        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion4">
-                            💼 Business: "Please find attached the documents you requested. I hope this helps with you're project."
-                        </button>
-                    </div>
-                </div>
+                {% include 'correction.html' %}
             </div>
 
             <!-- Key Value Extraction Tab -->
             <div class="tab-content" id="extractionTab">
-                <!-- Chat Grid -->
-                <div class="chat-grid">
-                    <!-- SmolLM2 Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">🚀</div>
-                                <h3>SmolLM2-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="extractionSmollm2Status">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="extractionSmollm2Messages">
-                        </div>
-                    </div>
-
-                    <!-- SmolLM Chat -->
-                    <div class="chat-panel">
-                        <div class="panel-header">
-                            <div class="model-title">
-                                <div class="model-avatar">⚡</div>
-                                <h3>SmolLM-135M-Instruct</h3>
-                            </div>
-                            <div class="model-status" id="extractionSmollmStatus">Loading...</div>
-                        </div>
-                        <div class="chat-messages" id="extractionSmollmMessages">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Suggestions Area -->
-                <div class="suggestions-container">
-                    <h3 class="suggestions-title">🔍 Try these extraction examples:</h3>
-                    <div class="suggestions-grid">
-                        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion1">
-                            👤 Personal Info: Extract from contact details
-                        </button>
-                        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion2">
-                            🧾 Invoice: Extract financial data
-                        </button>
-                        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion3">
-                            📅 Meeting: Extract schedule information
-                        </button>
-                        <button class="suggestion-button" data-mode="extraction" data-prompt="extraction_suggestion4">
-                            🏢 Business: Extract company data
-                        </button>
-                    </div>
-                </div>
+                {% include 'extraction.html' %}
             </div>
         </main>
     </div>

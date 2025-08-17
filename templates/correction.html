@@ -1,0 +1,47 @@
+<!-- Chat Grid -->
+<div class="chat-grid">
+    <!-- SmolLM2 Chat -->
+    <div class="chat-panel">
+        <div class="panel-header">
+            <div class="model-title">
+                <div class="model-avatar">🚀</div>
+                <h3>SmolLM2-135M-Instruct</h3>
+            </div>
+            <div class="model-status" id="correctionSmollm2Status">Loading...</div>
+        </div>
+        <div class="chat-messages" id="correctionSmollm2Messages">
+        </div>
+    </div>
+
+    <!-- SmolLM Chat -->
+    <div class="chat-panel">
+        <div class="panel-header">
+            <div class="model-title">
+                <div class="model-avatar">⚡</div>
+                <h3>SmolLM-135M-Instruct</h3>
+            </div>
+            <div class="model-status" id="correctionSmollmStatus">Loading...</div>
+        </div>
+        <div class="chat-messages" id="correctionSmollmMessages">
+        </div>
+    </div>
+</div>
+
+<!-- Suggestions Area -->
+<div class="suggestions-container">
+    <h3 class="suggestions-title">✏️ Try these text correction examples:</h3>
+    <div class="suggestions-grid">
+        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion1">
+            🔍 Fix: "I cant beleive its already december and i havent finished my homwork yet."
+        </button>
+        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion2">
+            📚 Correct: "Their going to there house to get they're things."
+        </button>
+        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion3">
+            📅 Fix: "The meeting will be held on Monday, Wenesday, and friday at 3pm."
+        </button>
+        <button class="suggestion-button" data-mode="correction" data-prompt="correction_suggestion4">
+            💼 Business: "Please find attached the documents you requested. I hope this helps with you're project."
+        </button>
+    </div>
+</div>
